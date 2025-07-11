@@ -55,3 +55,10 @@
 }
 .replayer-name { top: 222px; }
 .mapper-name { top: 305px; }
+
+/* Mods */
+.mod-icon {
+    position: absolute;
+    bottom: 20px;
+    left: 255px;
+}
