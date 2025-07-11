@@ -69,6 +69,10 @@
 }
 
 /* Song Timeline */
+.song-time-details {
+    text-align: right;
+    width: 427px;
+}
 .song-timeline {
     position: relative;
     width: 427px;
