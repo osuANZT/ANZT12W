@@ -114,3 +114,44 @@
     display: flex;
     justify-content: space-between;
 }
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 2560px;
+    width: 350px;
+    height: 1440px;
+    font-family: "Poppins";
+    background-color: #2183DD;
+    color: white;
+}
+h1 {
+    text-align: center;
+    width: 100%;
+}
+select {
+    width: 100%;
+    text-align: center;
+    font-family: "Poppins";
+    font-size: 1.5em;
+    color: white;
+    border: none;
+    background-color: transparent;
+}
+select::-webkit-scrollbar { display: none; }
+button { 
+    margin-left: 50px;
+    font-family: "Poppins";
+    font-size: 1.5em;
+    color: white;
+    background-color: transparent;
+    border: 3px solid white;
+    width: 250px;
+    height: 75px;
+    margin-top: 20px;
+    border-radius: 25px;
+}
+button:active {
+    color: #2183DD;
+    background-color: white;
+}
