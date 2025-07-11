@@ -43,7 +43,7 @@ socket.onmessage = event => {
             // Get scaled colour based on baseColor
             let scaledColor = baseColor
             let multiplier = 1
-            while (scaledColor.reduce((a, b) => a + b, 0) < 400) {
+            while (scaledColor.reduce((a, b) => a + b, 0) < 500) {
                 multiplier += 0.1
                 scaledColor = baseColor.map(c => c * multiplier)
             }
@@ -65,5 +65,4 @@ socket.onmessage = event => {
     const timelineWidth = 427 * data.beatmap.time.live / data.beatmap.time.mp3Length
     songTimelineForegroundEl.style.width = `${timelineWidth}px`
     songTimelineCircleEl.style.left = `${timelineWidth}px`
-
 }
