@@ -62,3 +62,60 @@
     bottom: 20px;
     left: 255px;
 }
+
+/* Now Playing */
+.now-playing {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1874px;
+    height: 251px;
+}
+.now-playing-background {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+/* Song Name */
+.song-name {
+    position: absolute;
+    top: 92px;
+    left: 98px;
+    font-size: 26px;
+    color: white;
+    font-weight: 700;
+    font-family: "Poppins";
+}
+/* Song Artist */
+.song-artist {
+    position: absolute;
+    top: 123px;
+    left: 98px;
+    font-size: 26px;
+    color: #D7D7D7;
+    font-weight: 400;
+    font-family: "Poppins";
+}
+/* Song Divider */
+.song-divider {
+    position: absolute;
+    top: 155px;
+    left: 98px;
+    font-size: 26px;
+    color: white;
+    font-weight: 400;
+    font-family: "Poppins";
+}
+/* Song Difficulty */
+.song-difficulty {
+    position: absolute;
+    top: 186px;
+    left: 98px;
+    font-size: 26px;
+    color: white;
+    font-weight: 700;
+    font-family: "Poppins";
+}
