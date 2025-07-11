@@ -14,7 +14,7 @@
     <div class="main">
         <!-- Logo Left -->
         <img class="logo" src="static/logo left.png">
-        <img class="current-stream" src="static/idle-icons/match-gf.png">
+        <img class="current-stream" id="current-stream" src="static/idle-icons/match-gf.png">
         <img class="startingsoon" src="static/startingsoon.png">
 
         <section class="now-playing-section">
@@ -40,22 +40,22 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h1>Select Round</h1>
-        <select size="8">
-            <option>Qualifiers</option>
-            <option>Round of 64</option>
-            <option>Round of 32</option>
-            <option>Round of 16</option>
-            <option>Quarterfinals</option>
-            <option>Semifinals</option>
-            <option>Finals</option>
-            <option>Grand Finals</option>
+        <select size="8" id="round-name">
+            <option value="qualifier">Qualifiers</option>
+            <option value="ro64">Round of 64</option>
+            <option value="ro32">Round of 32</option>
+            <option value="ro16">Round of 16</option>
+            <option value="qf">Quarterfinals</option>
+            <option value="sf">Semifinals</option>
+            <option value="f">Finals</option>
+            <option value="gf">Grand Finals</option>
         </select>
         <h1>Select Type of Stream</h1>
-        <select size="2">
-            <option>Showcase</option>
-            <option>Match</option>
+        <select size="2" id="match-type">
+            <option value="showcase">Showcase</option>
+            <option value="match">Match</option>
         </select>
-        <button>Apply Settings</button>
+        <button onclick="setIdleTitle()">Apply Settings</button>
     </div>
 
     <script src="index.js"></script>
