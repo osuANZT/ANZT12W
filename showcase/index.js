@@ -36,6 +36,7 @@ const modIconEl = document.getElementById("mod-icon")
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
+    console.log(data)
 
     const currentMap = findBeatmaps(`${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`)
     if (currentMap) {
@@ -90,10 +91,12 @@ socket.onmessage = event => {
     }
 
     // Set end time
-    songEndTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.mp3Length / 1000))
+    let mp3Length = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.mp3Length / 3 * 2 : data.beatmap.time.mp3Length) / 1000)
+    let liveTime = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.live / 3 * 2 : data.beatmap.time.live) / 1000)
+    songEndTimeEl.textContent = setLengthDisplay(mp3Length)
 
     // Get time
-    songCurrentTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.live / 1000))
+    songCurrentTimeEl.textContent = setLengthDisplay(liveTime)
     const timelineWidth = 427 * data.beatmap.time.live / data.beatmap.time.mp3Length
     songTimelineForegroundEl.style.width = `${timelineWidth}px`
     songTimelineCircleEl.style.left = `${timelineWidth}px`
