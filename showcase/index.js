@@ -27,6 +27,7 @@ const songTimelineForegroundEl = document.getElementById("song-timeline-foregrou
 const songTimelineCircleEl = document.getElementById("song-timeline-circle")
 const songCurrentTimeEl = document.getElementById("song-current-time")
 const songEndTimeEl = document.getElementById("song-end-time")
+let mp3Length, liveTime
 
 // Mod Icon
 const modIconEl = document.getElementById("mod-icon")
@@ -35,12 +36,12 @@ const modIconEl = document.getElementById("mod-icon")
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    console.log(data)
 
-    // Set mod id based on map
     if (currentId !== data.beatmap.id || currentChecksum !== data.beatmap.checksum) {
         currentId = data.beatmap.id
         currentChecksum = data.beatmap.checksum
+
+        // Set mod id based on map
         const currentMap = findBeatmaps(`${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`)
         if (currentMap) {
             modIconEl.style.display = "block"
@@ -58,8 +59,6 @@ socket.onmessage = event => {
         // Set a few timing details
         const backgroundUrl = data.directPath.beatmapBackground.replace(/\\/g, "/")
         const imagePath = `../../Songs/${backgroundUrl}?a=${Math.random(10000)}`
-        songNameEl.textContent = data.beatmap.title
-        songArtistEl.textContent = data.beatmap.artist
 
         // Get dominant colour
         const img = new Image()
@@ -86,8 +85,12 @@ socket.onmessage = event => {
             songTimelineCircleEl.style.borderColor = `rgb(${borderColor.join(",")})`
         }
 
+        // Set end time
+        mp3Length = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.mp3Length / 3 * 2 : data.beatmap.time.mp3Length) / 1000)
+        songEndTimeEl.textContent = setLengthDisplay(mp3Length)
     }
 
+    // Set replayer name
     replayerNameEl.textContent = data.resultsScreen.playerName
     
     // Set stat numbers
@@ -97,11 +100,9 @@ socket.onmessage = event => {
     odMumberEl.textContent = data.beatmap.stats.od.converted
     srMumberEl.textContent = `${data.beatmap.stats.stars.total}*`
 
-    // Set end time
-    let mp3Length = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.mp3Length / 3 * 2 : data.beatmap.time.mp3Length) / 1000)
+    // Set live time
     let liveTime = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.live / 3 * 2 : data.beatmap.time.live) / 1000)
-    songEndTimeEl.textContent = setLengthDisplay(mp3Length)
-
+    
     // Get time
     songCurrentTimeEl.textContent = setLengthDisplay(liveTime)
     const timelineWidth = 427 * data.beatmap.time.live / data.beatmap.time.mp3Length

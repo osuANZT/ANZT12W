@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Scene</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../_shared/shared.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+    <script src="../_shared/deps/reconnecting-websocket.min.js"></script>
+    <script src="../_shared/utils.js"></script>
+</head>
+<body>
+    <!-- Idle BG -->
+    <video autoplay loop muted>
+        <source src="static/idleBG.webm">
+    </video>
+    
+    <!-- Main Scene-->
+    <div class="main">
+        <!-- Logo Left -->
+        <img class="logo" src="../_shared/assets/logo left.png">
+        <img class="current-stream" id="current-stream" src="static/idle-icons/match-gf.png">
+        <img class="startingsoon" src="static/startingsoon.png">
+
+        <section class="now-playing-section">
+            <div class="now-playing-details">
+                <div class="song-name" id="song-name">FUBUKI</div>
+                <div class="song-artist" id="song-artist">Shiena Nishizawa</div>
+                <div class="song-time-details">
+                    <div class="song-timeline">
+                        <div class="song-timeline-background"></div>
+                        <div class="song-timeline-foreground" id="song-timeline-foreground"></div>
+                        <div class="song-timeline-circle" id="song-timeline-circle"></div>
+                    </div>
+                    <div class="song-timeline-details">
+                        <div class="song-current-time" id="song-current-time">0:56</div>
+                        <div class="song-end-time" id="song-end-time">4:06</div>
+                    </div>
+                </div>
+            </div>
+            <div class="background-image" id="background-image"></div>
+        </section>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>Select Round</h1>
+        <select size="8" id="round-name">
+            <option value="qualifier">Qualifiers</option>
+            <option value="ro64">Round of 64</option>
+            <option value="ro32">Round of 32</option>
+            <option value="ro16">Round of 16</option>
+            <option value="qf">Quarterfinals</option>
+            <option value="sf">Semifinals</option>
+            <option value="f">Finals</option>
+            <option value="gf">Grand Finals</option>
+        </select>
+        <h1>Select Type of Stream</h1>
+        <select size="2" id="match-type">
+            <option value="showcase">Showcase</option>
+            <option value="match">Match</option>
+        </select>
+        <button onclick="setIdleTitle()">Apply Settings</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

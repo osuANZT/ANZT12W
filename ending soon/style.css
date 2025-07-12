@@ -1,0 +1,127 @@
+/* ===========================
+   Logo
+=========================== */
+.logo {
+    position: absolute;
+    top: 348px;
+    left: 298px;
+    width: 392px;
+}
+
+/* ===========================
+   Current Stream
+=========================== */
+.current-stream {
+    position: absolute;
+    top: 586px;
+    left: 270px;
+}
+
+/* ===========================
+   Starting Soon
+=========================== */
+.startingsoon {
+    position: absolute;
+    top: 686px;
+    left: 305px;
+}
+
+/* ===========================
+   Now Playing Section
+=========================== */
+.now-playing-section {
+    position: absolute;
+    top: 634px;
+    right: 340px;
+    display: flex;
+    gap: 37px;
+}
+
+/* ===========================
+   Background Image
+=========================== */
+.background-image {
+    width: 172px;
+    height: 172px;
+    background-image: url("https://assets.ppy.sh/beatmaps/1942534/covers/cover.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.41), 0 0 36px rgba(255, 255, 255, 0.2);
+}
+
+/* ===========================
+   Song Name
+=========================== */
+.song-name {
+    font-family: "Poppins";
+    font-weight: 700;
+    color: white;
+    font-size: 31px;
+    text-align: right;
+    margin-top: -6px;
+}
+
+/* ===========================
+   Song artist
+=========================== */
+.song-artist {
+    font-size: 31px;
+    color: #c7c7c7;
+    font-weight: 500;
+    font-family: "Poppins";
+    text-align: right;
+    margin-bottom: 14px;
+}
+
+/* ===========================
+   Song Timeline
+=========================== */
+.song-time-details {
+    text-align: right;
+    width: 427px;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 2560px;
+    width: 350px;
+    height: 1440px;
+    font-family: "Poppins";
+    background-color: #2183DD;
+    color: white;
+}
+h1 {
+    text-align: center;
+    width: 100%;
+}
+select {
+    width: 100%;
+    text-align: center;
+    font-family: "Poppins";
+    font-size: 1.5em;
+    color: white;
+    border: none;
+    background-color: transparent;
+}
+select::-webkit-scrollbar { display: none; }
+button { 
+    margin-left: 50px;
+    font-family: "Poppins";
+    font-size: 1.5em;
+    color: white;
+    background-color: transparent;
+    border: 3px solid white;
+    width: 250px;
+    height: 75px;
+    margin-top: 20px;
+    border-radius: 25px;
+}
+button:active {
+    color: #2183DD;
+    background-color: white;
+}
