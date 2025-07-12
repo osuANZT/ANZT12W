@@ -1,28 +1,23 @@
-/* Video */
-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2560px;
-    height: 1440px;
+:root {
+    --metadata-stats-horizontal-alignment: 98px;
 }
 
 .main {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2560px;
-    height: 1440px;
+    font-family: "Poppins";
 }
 
-/* Logo */
+/* ===========================
+   Logo
+=========================== */
 .logo {
     position: absolute;
     width: 245px;
     left: -4px;
 }
 
-/* Showcase Title */
+/* ===========================
+   Showcase Title
+=========================== */
 .showcase-title {
     position: absolute;
     top: 65px;
@@ -42,13 +37,27 @@ video {
     transform: translate(-50%,-50%);
 }
 
-/* Gameplay Text */
+/* ===========================
+   Gameplay scene
+=========================== */
+.gameplay {
+    position: absolute;
+    top: 175px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1920px;
+    height: 1080px;
+    border-radius: 50px;
+    background-color: #0F0;
+}
+
+/* ===========================
+   Gameplay Text
+=========================== */
 .gameplay-text {
     position: absolute;
     left: 341px;
-    font-family: "Poppins";
 }
-/* Gameplay Texts */
 .gameplay-texts {
     font-size: 20px;
     color: #9e9e9e;
@@ -56,7 +65,9 @@ video {
 }
 .replayer-text { top: 197px; }
 .mapper-text { top: 281px; }
-/* Gameplay Names */
+/* ===========================
+   Gameplay names
+=========================== */
 .gameplay-names {
     font-size: 24px;
     color: white;
@@ -65,14 +76,18 @@ video {
 .replayer-name { top: 222px; }
 .mapper-name { top: 305px; }
 
-/* Mods */
+/* ===========================
+   Mod Icons
+=========================== */
 .mod-icon {
     position: absolute;
     bottom: 20px;
     left: 255px;
 }
 
-/* Now Playing */
+/* ===========================
+   Now Playing
+=========================== */
 .now-playing {
     position: absolute;
     bottom: 0;
@@ -87,49 +102,49 @@ video {
     left: 50%;
     transform: translateX(-50%);
 }
+/* ===========================
+   Song Metadata
+=========================== */
+.song-metadata {
+    position: absolute;
+    left: var(--metadata-stats-horizontal-alignment);
+    font-size: 26px;
+}
+/* ===========================
+   Song Details
+=========================== */
 /* Song Name */
 .song-name {
-    position: absolute;
     top: 92px;
-    left: 98px;
-    font-size: 26px;
     color: white;
     font-weight: 700;
-    font-family: "Poppins";
 }
 /* Song Artist */
 .song-artist {
-    position: absolute;
     top: 123px;
-    left: 98px;
-    font-size: 26px;
     color: #D7D7D7;
     font-weight: 400;
-    font-family: "Poppins";
 }
-/* Song Divider */
-.song-divider {
-    position: absolute;
-    top: 155px;
-    left: 98px;
-    font-size: 26px;
-    color: white;
-    font-weight: 400;
-    font-family: "Poppins";
-}
-.right-divider { right: 98px; left: unset; }
 /* Song Difficulty */
 .song-difficulty {
-    position: absolute;
     top: 186px;
-    left: 98px;
-    font-size: 26px;
     color: white;
     font-weight: 700;
-    font-family: "Poppins";
 }
+/* ===========================
+   Song Divider
+=========================== */
+/* Song Divider */
+.song-divider {
+    top: 155px;
+    color: white;
+    font-weight: 400;
+}
+.right-divider { right: var(--metadata-stats-horizontal-alignment); left: unset; }
 
-/* Song Timeline */
+/* ===========================
+   Song Timeline
+=========================== */
 .song-time-details {
     position: absolute;
     bottom: 50px;
@@ -138,92 +153,32 @@ video {
     text-align: right;
     width: 427px;
 }
-.song-timeline {
-    position: relative;
-    width: 427px;
-    height: 11px;
-}
-.song-timeline-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.541;
-    width: 427px;
-    height: 11px;
-    border-radius: 5px;
-    background-color: #000000;
-}
-.song-timeline-foreground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 228px;
-    height: 11px;
-    border-radius: 5px;
-    background-color: #ff524a;
-}
-.song-timeline-circle {
-    position: absolute;
-    top: 50%;
-    left: 228px;
-    transform: translate(-50%, -50%);
-    width: 28px;
-    height: 28px;
-    border-radius: 28px;
-    background-color: #ff524a;
-    border: 4px solid #ce3b33;
-}
-.song-timeline-details {
-    margin-top: 13px;
-    font-size: 29px;
-    color: white;
-    font-weight: 500;
-    font-family: "Poppins";
-    width: 427px;
-    display: flex;
-    justify-content: space-between;
-}
 
-.song-bpm {
+/* ===========================
+   Song Stats
+=========================== */
+.song-stats-helper-class {
     position: absolute;
-    top: 92px;
-    right: 98px;
+    right: var(--metadata-stats-horizontal-alignment);
     font-size: 26px;
+}
+.song-bpm {
+    top: 92px;
     color: white;
     font-weight: 400;
-    font-family: "Poppins";
 }
 .stat-number { 
     font-weight: 700;
     margin-left: 18px;
 }
 .song-other-stats {
-    position: absolute;
     top: 122px;
-    right: 98px;
     display: flex;
     gap: 30px;
-    font-size: 26px;
     color: white;
     font-weight: 400;
-    font-family: "Poppins";
 }
 .song-star {
-    position: absolute;
     top: 186px;
-    right: 98px;
-    font-size: 26px;
     color: #FFFD52;
-    font-family: "Poppins";
-}
-
-.gameplay {
-    position: absolute;
-    top: 175px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1920px;
-    height: 1080px;
-    border-radius: 50px;
-    background-color: #0F0;
 }

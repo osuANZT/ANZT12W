@@ -6,7 +6,7 @@
     <title>Showcase</title>
 
     <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="../_shared/shared.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -52,10 +52,10 @@
             <img class="now-playing-background" style="mix-blend-mode: overlay;" src="static/now-playing-layer/NP-secondLayer-Overlay.png">
             <img class="now-playing-background" style="mix-blend-mode: ligten; opacity: 0.67;" src="static/now-playing-layer/NP-thirdLayer-Lighten-67opacity.png">
             
-            <div class="song-name" id="song-name">Kimi no Shiranai Monogatari</div>
-            <div class="song-artist" id="song-artist">supercell</div>
-            <div class="song-divider">------------------</div>
-            <div class="song-difficulty" id="song-difficulty">Ethernal</div>
+            <div class="song-metadata song-name" id="song-name">Kimi no Shiranai Monogatari</div>
+            <div class="song-metadata song-artist" id="song-artist">supercell</div>
+            <div class="song-metadata song-divider">------------------</div>
+            <div class="song-metadata song-difficulty" id="song-difficulty">Ethernal</div>
             
             <div class="song-time-details">
                 <div class="song-timeline">
@@ -69,14 +69,14 @@
                 </div>
             </div>
             
-            <div class="song-bpm">bpm <span class="stat-number" id="bpm-number">165</span></div>
-            <div class="song-other-stats">
+            <div class="song-stats-helper-class song-bpm">bpm <span class="stat-number" id="bpm-number">165</span></div>
+            <div class="song-stats-helper-class song-other-stats">
                 <div>cs <span class="stat-number" id="cs-number">4.2</span></div>
                 <div>ar <span class="stat-number" id="ar-number">9.0</span></div>
                 <div>od <span class="stat-number" id="od-number">9.1</span></div>
             </div>
-            <div class="song-divider right-divider">------------------</div>
-            <div class="song-star stat-number" id="sr-number">5.23*</div>
+            <div class="song-stats-helper-class song-divider right-divider">------------------</div>
+            <div class="song-stats-helper-class song-star stat-number" id="sr-number">5.23*</div>
         </div>
     </div>
 
