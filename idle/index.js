@@ -15,6 +15,44 @@ const songTimelineCircleEl = document.getElementById("song-timeline-circle")
 const songCurrentTimeEl = document.getElementById("song-current-time")
 const songEndTimeEl = document.getElementById("song-end-time")
 
+// OBS Scene stuff
+const obsGetCurrentScene = window.obsstudio?.getCurrentScene ?? (() => {})
+const obsGetScenes = window.obsstudio?.getScenes ?? (() => {})
+const obsSetCurrentScene = window.obsstudio?.setCurrentScene ?? (() => {})
+
+const currentStatusEl = document.getElementById("current-status")
+const obs = new OBSWebSocket()
+obs.connect('ws://localhost:4455')
+    .then(() => {
+        console.log('Connected to OBS')
+
+        return obs.call('GetCurrentProgramScene')
+    })
+    .then(({ currentProgramSceneName }) => {
+        updateStatusImage(currentProgramSceneName)
+    })
+
+obs.on('CurrentProgramSceneChanged', data => {
+    updateStatusImage(data.sceneName)
+})
+
+function updateStatusImage(sceneName) {
+    switch (sceneName) {
+        case "Starting Soon":
+            currentStatusEl.setAttribute("src", "static/status/startingsoon.png")
+            break
+        case "Ending Soon":
+            currentStatusEl.setAttribute("src", "static/status/endingsoon.png")
+            break
+        case "Intermission":
+            currentStatusEl.setAttribute("src", "static/status/intermission.png")
+            break
+        case "Technical Difficulties":
+            currentStatusEl.setAttribute("src", "static/status/technical.png")
+            break
+    }
+}
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {

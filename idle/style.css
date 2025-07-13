@@ -78,6 +78,9 @@
    Song Timeline
 =========================== */
 .song-time-details {
+    font-family: "Poppins";
+    position: absolute;
+    right: 211px;
     text-align: right;
     width: 427px;
 }
