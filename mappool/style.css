@@ -156,8 +156,24 @@
     width: 426px;
     height: 90px;
     border-radius: 20px;
-    background-color: #214873;
 }
+/* ===========================
+   Map Container Background
+=========================== */
+.map-container-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    opacity: 0.67;
+}
+.map-container-background-nm { background-color: #214873; }
+.map-container-background-hd { background-color: #7e4819; }
+.map-container-background-hr { background-color: #7e1919; }
+.map-container-background-dt { background-color: #19447e; }
+.map-container-background-tb { background-color: #7e194f; }
 /* ===========================
    Map Background Image
 =========================== */
@@ -186,9 +202,6 @@
     text-align: left;
     line-height: 30px;
 }
-/* ===========================
-   Map Title and Difficulty
-=========================== */
 .map-title {
     font-weight: 700;
     color: white;
@@ -206,4 +219,29 @@
     top: 50%;
     right: -5px;
     transform: translateY(-50%);
+}
+/* ===========================
+   Map Overlay
+=========================== */
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    opacity: 0.67;
+    background-color: black;
+}
+/* ===========================
+   Map Banned Container
+=========================== */
+.map-action-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
