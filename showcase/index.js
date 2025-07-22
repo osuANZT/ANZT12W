@@ -45,7 +45,7 @@ socket.onmessage = event => {
         const currentMap = findBeatmaps(`${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`)
         if (currentMap) {
             modIconEl.style.display = "block"
-            modIconEl.setAttribute("src", `static/mods/${currentMap.mod}${currentMap.order}.png`)
+            modIconEl.setAttribute("src", `../_shared/assets/mods/${currentMap.mod}${currentMap.order}.png`)
         } else {
             modIconEl.style.display = "none"
         }

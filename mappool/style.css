@@ -106,3 +106,104 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* ===========================
+   Mappool Section
+=========================== */
+.mappool-section {
+    position: absolute;
+    top: 281px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.mappool-section > * {
+    height: 154px;
+}
+/* ===========================
+   Mod Section
+=========================== */
+.mod-section {
+    position: relative;
+}
+/* ===========================
+   Mod Section Background
+=========================== */
+.mod-section-background {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* ===========================
+   Maps Container
+=========================== */
+.maps-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 107%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+/* ===========================
+   Map Container
+=========================== */
+.map-container {
+    position: relative;
+    width: 426px;
+    height: 90px;
+    border-radius: 20px;
+    background-color: #214873;
+}
+/* ===========================
+   Map Background Image
+=========================== */
+.map-background-image {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #262d32;
+    background-image: url("https://assets.ppy.sh/beatmaps/1942534/covers/cover.jpg");
+    background-size: cover;
+    background-position: center;
+}
+/* ===========================
+   Map Metadata
+=========================== */
+.map-metadata {
+    position: absolute;
+    top: 15px;
+    left: 100px;
+    height: 100%;
+    font-family: "Poppins";
+    font-size: 22px;
+    text-align: left;
+    line-height: 30px;
+}
+/* ===========================
+   Map Title and Difficulty
+=========================== */
+.map-title {
+    font-weight: 700;
+    color: white;
+}
+.map-artist {
+    font-weight: 500;
+    color: #c7c7c7;
+}
+/* ===========================
+   Map Mod Icon
+=========================== */
+.map-mod-icon {
+    width: 105px;
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    transform: translateY(-50%);
+}
