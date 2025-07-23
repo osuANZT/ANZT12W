@@ -327,3 +327,90 @@ button:active {
 }
 .toggle-active { background-color: rgb(32, 121, 44); }
 .toggle-inactive { background-color: rgb(121, 32, 32); }
+p {
+    text-align: center;
+    font-size: 1.25em;
+}
+
+/* ===========================
+   Panel
+=========================== */
+.panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("static/background.png")
+}
+.panel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.478;
+}
+/* ===========================
+   Panel Inner
+=========================== */
+.panel-inner {
+    position: absolute;
+    top: 387px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 617px;
+    height: 578px;
+    /* background-image: url("static/now-playing-background.png") */
+    font-size: 22px;
+    font-family: "Poppins";
+}
+.panel-inner > * { position: absolute; }
+.panel-left-align { left: 26px; }
+.panel-text-bold {
+    color: white;
+    font-weight: 700;
+}
+.panel-text-regular {
+    color: #D6D6D6;
+    font-weight: 400;
+}
+/* ===========================
+   Song Background
+=========================== */
+.panel-song-background {
+    top: 29px;
+    width: 455px;
+    height: 90px;
+    filter: drop-shadow(3.993px 3.009px 4px rgba(0,0,0,0.42));
+    background-color: #262d32;
+    background-image: url("https://assets.ppy.sh/beatmaps/1942534/covers/cover.jpg");
+    background-size: cover;
+    background-position: center;
+}
+/* ===========================
+   Mod Id
+=========================== */
+.panel-mod-id {
+    top: 6px;
+    right: 5px;
+}
+/* ===========================
+   Text Positions
+=========================== */
+.panel-title { top: 144px; }
+.panel-artist { top: 170px; }
+.panel-difficulty { top: 223px; }
+.panel-mapped-by { top: 275px; }
+.panel-mapper-name { top: 302px; }
+.panel-stats-line-one { top: 380px; }
+.panel-stats-line-two { top: 432px; }
+.panel-stats-number { margin-right: 64px; }
+.panel-star-rating {
+    top: 144px;
+    right: 72px;
+    transform: translateX(50%);
+    color: #fcff00;
+    font-weight: 700;
+}

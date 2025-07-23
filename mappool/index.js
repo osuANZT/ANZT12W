@@ -96,11 +96,14 @@ function mapClickEvent(event) {
     else if (event.altKey) action = "reset"
 
     if (action === "pick") {
+        // Normal tile stuff
         currentPickedTile = this
         this.children[4].style.display = "block"
         this.children[5].style.display = "none"
         this.children[6].style.display = "flex"
         this.children[6].children[0].setAttribute("src", `static/map-action/${team}-pick.png`)
+
+        // 
     } else if (action === "ban") {
         if (currentPickedTile === this) {
             currentPickedTile = undefined
