@@ -96,19 +96,28 @@ function mapClickEvent(event) {
     else if (event.altKey) action = "reset"
 
     if (action === "pick") {
+        currentPickedTile = this
         this.children[4].style.display = "block"
         this.children[5].style.display = "none"
         this.children[6].style.display = "flex"
         this.children[6].children[0].setAttribute("src", `static/map-action/${team}-pick.png`)
     } else if (action === "ban") {
+        if (currentPickedTile === this) {
+            currentPickedTile = undefined
+        }
         this.children[4].style.display = "block"
         this.children[5].style.display = "flex"
         this.children[6].style.display = "none"
         this.children[5].children[0].setAttribute("src", `static/map-action/${team}-ban.png`)
+        this.children[6].children[1].removeAttribute("src")
     } else if (action === "reset") {
+        if (currentPickedTile === this) {
+            currentPickedTile = undefined
+        }
         this.children[4].style.display = "none"
         this.children[5].style.display = "none"
         this.children[6].style.display = "none"
+        this.children[6].children[1].removeAttribute("src")
     }
 }
 
@@ -128,6 +137,10 @@ let chatLen = 0
 
 // Now Playing Information
 let currentId, currentChecksum, currentMappoolBeatmap, currentPickedTile
+
+// Setting a winner
+let ipcState, checkedWinner = false, isStarToggled
+let currentLeftScore, currentRightScore
 
 // Socket
 const socket = createTosuWsSocket()
@@ -234,6 +247,34 @@ socket.onmessage = event => {
 
             if (currentNextPicker === "red") setNextPicker("blue")
             else if (currentNextPicker === "blue") setNextPicker("red")
+        }
+    }
+
+    // Star Toggling
+    if (isStarToggled !== data.tourney.starsVisible) {
+        isStarToggled = data.tourney.starsVisible
+        if (isStarToggled) {
+            playerStarContainerLeftEl.style.opacity = 1
+            playerStarContainerRightEl.style.opacity = 1
+        } else {
+            playerStarContainerLeftEl.style.opacity = 0
+            playerStarContainerRightEl.style.opacity = 0
+        }
+    }
+
+    // IPC State
+    if (ipcState !== data.tourney.ipcState) {
+        ipcState = data.tourney.ipcState
+        if (ipcState === 4 && !checkedWinner && currentPickedTile && isStarToggled) {
+            checkedWinner = true
+
+            // Set winner
+            currentLeftScore = data.tourney.totalScore.left
+            currentRightScore = data.tourney.totalScore.right
+            let winner = currentLeftScore > currentRightScore ? "red" : currentRightScore > currentLeftScore ? "blue" : ""
+
+            // Set tile
+            currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}.png`)
         }
     }
 }
