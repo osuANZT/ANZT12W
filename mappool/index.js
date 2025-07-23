@@ -126,6 +126,9 @@ let currentBestOf, currentFirstTo, currentStarLeft, currentStarRight
 const chatDisplayContainerEl = document.getElementById("chat-display-container")
 let chatLen = 0
 
+// Now Playing Information
+let currentId, currentChecksum, currentMappoolBeatmap, currentPickedTile
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -206,6 +209,32 @@ socket.onmessage = event => {
         chatDisplayContainerEl.append(fragment)
         chatLen = data.tourney.chat.length
         chatDisplayContainerEl.scrollTop = chatDisplayContainerEl.scrollHeight
+    }
+
+    // Mappool map
+    if (currentId !== data.beatmap.id || currentChecksum !== data.beatmap.checksum) {
+        currentId = data.beatmap.id
+        currentChecksum = data.beatmap.checksum
+        currentMappoolBeatmap = findBeatmaps(currentId)
+
+        // Find element
+        const element = document.getElementById(currentId)
+        
+        // Click event
+        if (isAutopickToggled && element && (!element.hasAttribute("data-is-autopicked") || element.getAttribute("data-is-autopicked") !== "true")) {
+            // Check if autopicked already
+            const event = new MouseEvent('mousedown', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                button: (currentNextPicker === "red")? 0 : 2
+            })
+            element.dispatchEvent(event)
+            element.setAttribute("data-is-autopicked", "true")
+
+            if (currentNextPicker === "red") setNextPicker("blue")
+            else if (currentNextPicker === "blue") setNextPicker("red")
+        }
     }
 }
 

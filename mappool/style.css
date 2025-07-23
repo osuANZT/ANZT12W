@@ -309,16 +309,6 @@ h2 {
     font-size: 3em;
     height: 72px;
 }
-select {
-    width: 100%;
-    text-align: center;
-    font-family: "Poppins";
-    font-size: 1.5em;
-    color: white;
-    border: none;
-    background-color: transparent;
-}
-select::-webkit-scrollbar { display: none; }
 button { 
     margin-left: 50px;
     font-family: "Poppins";
@@ -335,3 +325,5 @@ button:active {
     color: #2183DD;
     background-color: white;
 }
+.toggle-active { background-color: rgb(32, 121, 44); }
+.toggle-inactive { background-color: rgb(121, 32, 32); }
