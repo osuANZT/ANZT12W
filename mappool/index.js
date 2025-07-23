@@ -208,3 +208,27 @@ socket.onmessage = event => {
         chatDisplayContainerEl.scrollTop = chatDisplayContainerEl.scrollHeight
     }
 }
+
+// Next Picker
+const nextPickerEl = document.getElementById("next-picker")
+let currentNextPicker = "none"
+function setNextPicker(pickerTeam) {
+    currentNextPicker = pickerTeam
+    nextPickerEl.textContent = pickerTeam === "red" ? "Red" : "Blue"
+}
+
+// Toggle Autopick
+const toggleAutopickEl = document.getElementById("toggle-autopick")
+let isAutopickToggled = false
+function toggleAutopick() {
+    isAutopickToggled = !isAutopickToggled
+    toggleAutopickEl.textContent = `TOGGLE AUTOPICK: ${isAutopickToggled? "ON": "OFF"}`
+}
+
+// Toggle Animation
+const toggleAnimaionEl = document.getElementById("toggle-animation")
+let isAnimationToggled = false
+function toggleAnimation() {
+    isAnimationToggled = !isAnimationToggled
+    toggleAnimaionEl.textContent = `TOGGLE ANIMATION: ${isAnimationToggled? "ON": "OFF"}`
+}

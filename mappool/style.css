@@ -301,9 +301,13 @@
     background-color: #2183DD;
     color: white;
 }
-h1 {
+h1, h2 {
     text-align: center;
     width: 100%;
+}
+h2 {
+    font-size: 3em;
+    height: 72px;
 }
 select {
     width: 100%;
@@ -318,7 +322,7 @@ select::-webkit-scrollbar { display: none; }
 button { 
     margin-left: 50px;
     font-family: "Poppins";
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: white;
     background-color: transparent;
     border: 3px solid white;
