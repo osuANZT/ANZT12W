@@ -19,11 +19,6 @@
    Main
 =========================== */
 .main {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2560px;
-    height: 1440px;
     background-image: url("static/background.png");
 }
 
@@ -33,7 +28,7 @@
 .player-name {
     position: absolute;
     top: 65px;
-    width: 235px;
+    width: 270px;
     height: 29px;
     font-size: 2em;
     color: white;
