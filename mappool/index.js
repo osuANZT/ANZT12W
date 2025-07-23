@@ -1,3 +1,13 @@
+// Get beatmap information
+const roundLogoEl = document.getElementById("round-logo")
+let allBeatmaps
+async function getBeatmaps() {
+    const response = await axios.get("../_data/beatmaps.json")
+    roundLogoEl.setAttribute("src", `static/round-logos/${response.data.roundName}.png`)
+    allBeatmaps = response.data.beatmaps
+}
+getBeatmaps()
+
 // Player Names
 const playerNameLeftEl = document.getElementById("player-name-left")
 const playerNameRightEl = document.getElementById("player-name-right")
@@ -39,14 +49,14 @@ socket.onmessage = event => {
 
         for (let i = 0; i < currentFirstTo; i++) {
             // Left Stars
-            if (i < currentStarLeft - 1) {
+            if (i < currentStarLeft) {
                 playerStarContainerLeftEl.append(createStar("fill"))
             } else {
                 playerStarContainerLeftEl.append(createStar("empty"))
             }
 
             // Right Stars
-            if (i < currentStarRight - 1) {
+            if (i < currentStarRight) {
                 playerStarContainerRightEl.append(createStar("fill"))
             } else {
                 playerStarContainerRightEl.append(createStar("empty"))
