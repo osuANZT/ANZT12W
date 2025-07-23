@@ -5,8 +5,71 @@ async function getBeatmaps() {
     const response = await axios.get("../_data/beatmaps.json")
     roundLogoEl.setAttribute("src", `static/round-logos/${response.data.roundName}.png`)
     allBeatmaps = response.data.beatmaps
+
+    for (let i = 0; i < allBeatmaps.length; i++) {
+        const element = document.getElementById(`${allBeatmaps[i].mod.toLowerCase()}-maps-container`)
+        element.append(createBeatmapTile(allBeatmaps[i]))
+    }
 }
 getBeatmaps()
+
+// Create beatmap tile
+function createBeatmapTile(beatmap) {
+    // Map Container
+    const mapContainerEl = document.createElement("div")
+    mapContainerEl.classList.add("map-container")
+
+    // Map Container Background
+    const mapContainerBackgroundEl = document.createElement("div")
+    mapContainerBackgroundEl.classList.add("map-container-background", `map-container-background-${beatmap.mod.toLowerCase()}`)
+    
+    // Map background Image
+    const mapBackgroundImage = document.createElement("div")
+    mapBackgroundImage.classList.add("map-background-image")
+    mapBackgroundImage.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${beatmap.beatmapset_id}/covers/cover.jpg")`
+    
+    // Map metadata
+    const mapMetadata = document.createElement("section")
+    mapMetadata.classList.add("map-metadata")
+    // Map Title
+    const mapTitle = document.createElement("div")
+    mapTitle.classList.add("map-title")
+    mapTitle.textContent = beatmap.title
+    // Map Artist
+    const mapArtist = document.createElement("div")
+    mapArtist.classList.add("map-artist")
+    mapArtist.textContent = beatmap.artist
+    mapMetadata.append(mapTitle, mapArtist)
+
+    // Map Mod Icon
+    const mapModIcon = document.createElement("img")
+    mapModIcon.classList.add("map-mod-icon")
+    mapModIcon.setAttribute("src", `../_shared/assets/mods/${beatmap.mod.toLowerCase()}${beatmap.order}.png`)
+    
+    // Map Overlay
+    const mapOverlay = document.createElement("div")
+    mapOverlay.classList.add("map-overlay")
+
+    // Map Action Container - Ban
+    const mapActionContainerBan = document.createElement("div")
+    mapActionContainerBan.classList.add("map-action-container")
+    // Ban Image
+    const banImage = document.createElement("img")
+    mapActionContainerBan.append(banImage)
+
+    // Map Action Container - Pick + Winner
+    const mapActionContainerPickWinner = document.createElement("div")
+    mapActionContainerPickWinner.classList.add("map-action-container")
+    // Pick + Winner Image
+    const pickImage = document.createElement("img")
+    const winnerImage = document.createElement("img")
+    mapActionContainerPickWinner.append(pickImage, winnerImage)
+
+    // Append everything together
+    mapContainerEl.append(mapContainerBackgroundEl, mapBackgroundImage, mapMetadata,
+        mapModIcon, mapOverlay, mapActionContainerBan, mapActionContainerPickWinner)
+    return mapContainerEl
+}
 
 // Player Names
 const playerNameLeftEl = document.getElementById("player-name-left")

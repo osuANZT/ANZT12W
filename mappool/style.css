@@ -180,7 +180,6 @@
     height: 80px;
     border-radius: 10px;
     background-color: #262d32;
-    background-image: url("https://assets.ppy.sh/beatmaps/1942534/covers/cover.jpg");
     background-size: cover;
     background-position: center;
 }
@@ -191,11 +190,16 @@
     position: absolute;
     top: 15px;
     left: 100px;
-    height: 100%;
     font-family: "Poppins";
     font-size: 22px;
     text-align: left;
     line-height: 30px;
+}
+.map-metadata > * {
+    width: 225px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .map-title {
     font-weight: 700;
@@ -227,6 +231,7 @@
     border-radius: inherit;
     opacity: 0.67;
     background-color: black;
+    display: none;
 }
 /* ===========================
    Map Banned Container
