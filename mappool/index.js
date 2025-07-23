@@ -77,8 +77,22 @@ function createBeatmapTile(beatmap) {
     return mapContainerEl
 }
 
+// Panel Details
+const panelEl = document.getElementById("panel")
+const panelBackgroundEl = document.getElementById("panel-background")
+const panelModIdEl = document.getElementById("panel-mod-id")
+const panelTitleEl= document.getElementById("panel-title")
+const panelArtistEl= document.getElementById("panel-artist")
+const panelDifficultyEl= document.getElementById("panel-difficulty")
+const panelMapperEl= document.getElementById("panel-mapper")
+const panelLengthEl= document.getElementById("panel-length")
+const panelBpmEl= document.getElementById("panel-bpm")
+const panelCsEl= document.getElementById("panel-cs")
+const panelArEl= document.getElementById("panel-ar")
+const panelSrEl= document.getElementById("panel-sr")
+
 // Map Click Event
-function mapClickEvent(event) {
+async function mapClickEvent(event) {
     // Figure out whether it is a pick or ban
     const currentMapId = this.dataset.id
     const currentMap = findBeatmaps(currentMapId)
@@ -103,7 +117,47 @@ function mapClickEvent(event) {
         this.children[6].style.display = "flex"
         this.children[6].children[0].setAttribute("src", `static/map-action/${team}-pick.png`)
 
-        // 
+        // Animation
+        if (isAnimationToggled) {
+            // Calculate stats
+            let len = Number(currentMap.hit_length)
+            let bpm = Number(currentMap.bpm)
+            let cs = Number(currentMap.diff_size)
+            let ar = Number(currentMap.diff_approach)
+
+            if (currentMap.mod.includes("HR")) {
+                cs = Math.min(Math.round(cs * 1.3 * 10) / 10, 10)
+                ar = Math.min(Math.round(ar * 1.4 * 10) / 10, 10)
+            }
+            if (currentMap.mod.includes("DT")) {
+                if (ar > 5) ar = Math.round((((1200 - (( 1200 - (ar - 5) * 150) * 2 / 3)) / 150) + 5) * 10) / 10
+                else ar = Math.round((1800 - ((1800 - ar * 120) * 2 / 3)) / 120 * 10) / 10
+                bpm = Math.round(bpm * 1.5)
+                len = Math.round(len / 1.5)
+            }
+
+            // Set details
+            panelBackgroundEl.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${currentMap.beatmapset_id}/covers/cover.jpg")`
+            panelModIdEl.setAttribute("src", `../_shared/assets/mods/${currentMap.mod.toLowerCase()}${currentMap.order}.png`)
+            panelTitleEl.textContent = currentMap.title
+            panelArtistEl.textContent = currentMap.artist
+            panelDifficultyEl.textContent = `[${currentMap.version}]`
+            panelMapperEl.textContent = currentMap.creator
+            panelSrEl.textContent = `${Number(currentMap.difficultyrating).toFixed(2)}*`
+            panelLengthEl.textContent = setLengthDisplay(len)
+            panelBpmEl.textContent = bpm
+            panelCsEl.textContent = cs.toFixed(1)
+            panelArEl.textContent = ar.toFixed(1)
+
+            // Animation
+            panelEl.style.display = "block"
+            await delay(100)
+            panelEl.style.opacity = 1
+            await delay(5000)
+            panelEl.style.opacity = 0
+            await delay(500)
+            panelEl.style.display = "none"
+        }
     } else if (action === "ban") {
         if (currentPickedTile === this) {
             currentPickedTile = undefined
@@ -295,7 +349,7 @@ const toggleAutopickEl = document.getElementById("toggle-autopick")
 let isAutopickToggled = false
 function toggleAutopick() {
     isAutopickToggled = !isAutopickToggled
-    toggleAutopickEl.textContent = `TOGGLE AUTOPICK: ${isAutopickToggled? "ON": "OFF"}`
+    toggleAutopickEl.textContent = `Toggle Autopick: ${isAutopickToggled? "ON": "OFF"}`
 }
 
 // Toggle Animation
@@ -303,5 +357,5 @@ const toggleAnimaionEl = document.getElementById("toggle-animation")
 let isAnimationToggled = false
 function toggleAnimation() {
     isAnimationToggled = !isAnimationToggled
-    toggleAnimaionEl.textContent = `TOGGLE ANIMATION: ${isAnimationToggled? "ON": "OFF"}`
+    toggleAnimaionEl.textContent = `Toggle Animation: ${isAnimationToggled? "ON": "OFF"}`
 }
