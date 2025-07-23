@@ -16,13 +16,6 @@
 }
 
 /* ===========================
-   Main
-=========================== */
-.main {
-    background-image: url("static/background.png");
-}
-
-/* ===========================
    Player Names
 =========================== */
 .player-name {
@@ -268,7 +261,7 @@
    Chat Display Container
 =========================== */
 .chat-display-container {
-position: absolute;
+    position: absolute;
     left: 70px;
     bottom: 57px;
     width: 1436px;
