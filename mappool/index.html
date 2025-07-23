@@ -67,6 +67,29 @@
         </div>
     </div>
 
+        <!-- Sidebar -->
+    <div class="sidebar">
+        <section class="sidebar-section">
+            <h1>Select Round</h1>
+            <select size="8" id="round-name">
+                <option value="qualifier">Qualifiers</option>
+                <option value="ro64">Round of 64</option>
+                <option value="ro32">Round of 32</option>
+                <option value="ro16">Round of 16</option>
+                <option value="qf">Quarterfinals</option>
+                <option value="sf">Semifinals</option>
+                <option value="f">Finals</option>
+                <option value="gf">Grand Finals</option>
+            </select>
+            <h1>Select Type of Stream</h1>
+            <select size="2" id="match-type">
+                <option value="showcase">Showcase</option>
+                <option value="match">Match</option>
+            </select>
+            <button onclick="setIdleTitle()">Apply Settings</button>
+        </section>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>

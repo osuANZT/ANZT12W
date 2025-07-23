@@ -12,12 +12,18 @@ async function getBeatmaps() {
     }
 }
 getBeatmaps()
+// Find Beatmaps
+const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.beatmap_id) === Number(beatmapId))
 
 // Create beatmap tile
 function createBeatmapTile(beatmap) {
     // Map Container
     const mapContainerEl = document.createElement("div")
     mapContainerEl.classList.add("map-container")
+    mapContainerEl.dataset.id = beatmap.beatmap_id
+    mapContainerEl.setAttribute("id", beatmap.beatmap_id)
+    mapContainerEl.addEventListener("mousedown", mapClickEvent)
+    mapContainerEl.addEventListener("contextmenu", event => event.preventDefault())
 
     // Map Container Background
     const mapContainerBackgroundEl = document.createElement("div")
@@ -69,6 +75,41 @@ function createBeatmapTile(beatmap) {
     mapContainerEl.append(mapContainerBackgroundEl, mapBackgroundImage, mapMetadata,
         mapModIcon, mapOverlay, mapActionContainerBan, mapActionContainerPickWinner)
     return mapContainerEl
+}
+
+// Map Click Event
+function mapClickEvent(event) {
+    // Figure out whether it is a pick or ban
+    const currentMapId = this.dataset.id
+    const currentMap = findBeatmaps(currentMapId)
+    if (!currentMap) return
+
+    // Team
+    let team
+    if (event.button === 0) team = "red"
+    else if (event.button === 2) team = "blue"
+    if (!team) return
+
+    // Action
+    let action = "pick"
+    if (event.ctrlKey) action = "ban"
+    else if (event.altKey) action = "reset"
+
+    if (action === "pick") {
+        this.children[4].style.display = "block"
+        this.children[5].style.display = "none"
+        this.children[6].style.display = "flex"
+        this.children[6].children[0].setAttribute("src", `static/map-action/${team}-pick.png`)
+    } else if (action === "ban") {
+        this.children[4].style.display = "block"
+        this.children[5].style.display = "flex"
+        this.children[6].style.display = "none"
+        this.children[5].children[0].setAttribute("src", `static/map-action/${team}-ban.png`)
+    } else if (action === "reset") {
+        this.children[4].style.display = "none"
+        this.children[5].style.display = "none"
+        this.children[6].style.display = "none"
+    }
 }
 
 // Player Names
