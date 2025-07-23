@@ -280,6 +280,7 @@ position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    overflow: hidden;
 }
 .chat-message-container {
     display: flex;

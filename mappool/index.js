@@ -81,6 +81,10 @@ const playerStarContainerLeftEl = document.getElementById("player-star-container
 const playerStarContainerRightEl = document.getElementById("player-star-container-right")
 let currentBestOf, currentFirstTo, currentStarLeft, currentStarRight
 
+// Chat stuff
+const chatDisplayContainerEl = document.getElementById("chat-display-container")
+let chatLen = 0
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -132,5 +136,34 @@ socket.onmessage = event => {
             star.classList.add("player-star", `player-star-${status}`)
             return star
         }
+    }
+
+    // This is also mostly taken from Victim Crasher: https://github.com/VictimCrasher/static/tree/master/WaveTournament
+    if (chatLen !== data.tourney.chat.length) {
+        (chatLen === 0 || chatLen > data.tourney.chat.length) ? (chatDisplayContainerEl.innerHTML = "", chatLen = 0) : null
+        const fragment = document.createDocumentFragment()
+
+        for (let i = chatLen; i < data.tourney.chat.length; i++) {
+            // Chat message container
+            const chatMessageContainer = document.createElement("div")
+            chatMessageContainer.classList.add("chat-message-container")  
+
+            // Name
+            const chatMessageName = document.createElement("div")
+            chatMessageName.classList.add("chat-message-name", data.tourney.chat[i].team)
+            chatMessageName.textContent = data.tourney.chat[i].name
+
+            // Message
+            const chatMessageContent = document.createElement("div")
+            chatMessageContent.classList.add("chat-message-content")
+            chatMessageContent.innerText = data.tourney.chat[i].message
+
+            chatMessageContainer.append(chatMessageName, chatMessageContent)
+            fragment.append(chatMessageContainer)
+        }
+
+        chatDisplayContainerEl.append(fragment)
+        chatLen = data.tourney.chat.length
+        chatDisplayContainerEl.scrollTop = chatDisplayContainerEl.scrollHeight
     }
 }
