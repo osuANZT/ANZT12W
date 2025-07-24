@@ -1,0 +1,8 @@
+.main::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+img {
+    position: absolute;
+    width: 394px;
+    height: 174px;
+}
