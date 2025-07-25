@@ -1,0 +1,27 @@
+/* ===========================
+   Main
+=========================== */
+.main {
+    background-image: url("static/background.png");                                                                                                                                                                                                     
+}
+
+/* ===========================
+   Logo
+=========================== */
+.logo {
+    position: absolute; 
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ===========================
+   Title Background
+=========================== */
+.title-background {
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.75;
+}
