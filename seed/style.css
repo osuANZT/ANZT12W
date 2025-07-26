@@ -1,3 +1,14 @@
+@font-face {
+    font-family: "Torus";
+    src: url("../fonts/Torus\ Bold.otf");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Torus";
+    src: url("../fonts/Torus\ Regular.otf");
+    font-weight: 400;
+}
+
 /* ===========================
    Main
 =========================== */
@@ -20,8 +31,115 @@
 =========================== */
 .title-background {
     position: absolute;
-    top: 160px;
+    top: 89px;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0.75;
+    mix-blend-mode: overlay;
 }
+
+/* ===========================
+   Seed Reveal
+=========================== */
+.seed-reveal {
+    position: absolute;
+    top: 117px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ===========================
+    Profile Picture
+=========================== */
+.profile-picture {
+    position: absolute;
+    top: 266px;
+    left: 659px;
+    width: 130px;
+    height: 130px;
+    border: 2px solid #ffffff;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 29px 9px rgba(0, 0, 255, 1);
+}
+
+/* ===========================
+    Player Details
+=========================== */
+.player-details {
+    position: absolute;
+    left: 814px;
+    font-family: "Poppins";
+    font-weight: 700;
+    color: white;
+}
+.player-seed {
+    top: 283px;
+    font-size: 39px;
+}
+.player-name {
+    top: 327px;
+    font-size: 31px;
+}
+
+/* ===========================
+    Results Background
+=========================== */
+.results-background {
+    position: absolute;
+    top: 399px;
+    left: 1301px;
+    transform: translateX(-50%);
+    mix-blend-mode: overlay;
+}
+
+/* ===========================
+    Results Top Area
+=========================== */
+.results-top-area {
+    position: absolute;
+    top: 471px;
+    left: 785px;
+    width: 1060px;
+    display: flex;
+    justify-content: space-between;
+}
+/* ===========================
+    Results Mod Container
+=========================== */
+.results-mod-container {
+    display: flex;
+    align-items: center;
+    width: 160px;
+}
+.results-mod-rank {
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+    font-family: "Poppins";
+    margin-left: 6px;
+}
+/* ===========================
+    Results Container
+=========================== */
+.results-container {
+    position: absolute;
+    top: 592px;
+    left: 790px;
+    display: flex;
+    gap: 147px;
+}
+.mod-results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+.map-results-container {
+    font-size: 29px;
+    color: #e1e1e1;
+    font-family: "Torus";
+    filter: drop-shadow(0.908px 1.782px 0px #2e2e2e);
+}
+.map-results-mod-rank { font-weight: 700; }
+.map-results-mod-rank-slash-spacing { margin-left: 7px; }
+.map-results-score { font-weight: 400; }
