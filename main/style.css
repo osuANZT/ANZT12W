@@ -3,11 +3,38 @@
 =========================== */
 .main {
     background-image: url("static/background.png");
+    overflow: hidden;
 }
 
 /* ===========================
-   Title Background
+   Title
 =========================== */
 .title-background {
-    
+    position: absolute;
+    top: 87px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.75;
+    mix-blend-mode: overlay;
+}
+.title {
+    position: absolute;
+    top: 115px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ===========================
+   Gameplay
+=========================== */
+.gameplay-barrier {
+    position: absolute;
+    top: 188px;
+    left: 1px;
+    width: 2557px;
+    height: 960px;
+    border-radius: 40px;
+    background-color: #0F0;
+    border: 1px solid white;
+    box-shadow: inset 0 0 24px 15px rgba(255, 255, 255, 0.69);
 }
