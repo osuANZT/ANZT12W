@@ -10,147 +10,139 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="../_shared/deps/reconnecting-websocket.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+    <script src="../_shared/utils.js"></script>
 </head>
 <body>
+    <!-- Video -->
+    <video autoplay loop muted>
+        <source src="../_shared/assets/background.webm">
+    </video>
+
     <div class="main">
         <img class="logo" src="../_shared/assets/logo.png">
         <img class="title-background" src="../_shared/assets/title-bg-overlay-75opac.png">
         <img class="seed-reveal" src="static/seed-reveal.png">
 
-        <div class="profile-picture"></div>
-        <div class="player-details player-seed">#22</div>
-        <div class="player-details player-name">playername</div>
+        <div class="profile-picture" id="profile-picture"></div>
+        <div class="player-details player-seed" id="player-seed">#22</div>
+        <div class="player-details player-name" id="player-name">playername</div>
 
         <img class="results-background" src="static/results-bg-overlay.png">
         <div class="results-top-area">
             <div class="results-mod-container">
                 <img class="results-mod-image" src="static/mod-icons/NM.png">
-                <div class="results-mod-rank">#20</div>
+                <div class="results-mod-rank" id="results-mod-rank-nm"></div>
             </div>
             <div class="results-mod-container">
                 <img class="results-mod-image" src="static/mod-icons/HD.png">
-                <div class="results-mod-rank">#20</div>
+                <div class="results-mod-rank" id="results-mod-rank-hd"></div>
             </div>
             <div class="results-mod-container">
                 <img class="results-mod-image" src="static/mod-icons/HR.png">
-                <div class="results-mod-rank">#20</div>
+                <div class="results-mod-rank" id="results-mod-rank-hr"></div>
             </div>
             <div class="results-mod-container">
                 <img class="results-mod-image" src="static/mod-icons/DT.png">
-                <div class="results-mod-rank">#20</div>
+                <div class="results-mod-rank" id="results-mod-rank-dt"></div>
             </div>
         </div>
         <div class="results-container">
             <div class="mod-results-container" id="results-container-nm">
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>NM2</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>NM3</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>NM4</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
-                </div>
-            </div>
-            <div class="mod-results-container" id="results-container-nm">
-                <div class="map-results-container">
-                    <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
-                    </div>
-                    <div class="map-results-score">1,093,531</div>
-                </div>
-                <div class="map-results-container">
-                    <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
-                    </div>
-                    <div class="map-results-score">1,093,531</div>
-                </div>
-                <div class="map-results-container">
-                    <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
-                    </div>
-                    <div class="map-results-score">1,093,531</div>
-                </div>
-                <div class="map-results-container">
-                    <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
-                    </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
             </div>
-            <div class="mod-results-container" id="results-container-nm">
+            <div class="mod-results-container" id="results-container-hd">
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>HD1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>HD2</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>HD3</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
-                </div>
-                <div class="map-results-container">
-                    <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
-                    </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
             </div>
-            <div class="mod-results-container" id="results-container-nm">
+            <div class="mod-results-container" id="results-container-hr">
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>HR1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>HR2</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>HR3</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
+                </div>
+            </div>
+            <div class="mod-results-container" id="results-container-dt">
+                <div class="map-results-container">
+                    <div class="map-results-mod-rank">
+                        <span>DT1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
+                    </div>
+                    <div class="map-results-score"></div>
                 </div>
                 <div class="map-results-container">
                     <div class="map-results-mod-rank">
-                        <span>NM1</span><span class="map-results-mod-rank-slash-spacing"> / </span><span>#16</span> - 
+                        <span>DT2</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
                     </div>
-                    <div class="map-results-score">1,093,531</div>
+                    <div class="map-results-score"></div>
+                </div>
+                <div class="map-results-container">
+                    <div class="map-results-mod-rank">
+                        <span>DT3</span><span class="map-results-mod-rank-slash-spacing"> / </span><span></span> - 
+                    </div>
+                    <div class="map-results-score"></div>
                 </div>
             </div>
         </div>
 
+        <!-- Now Playing Section -->
         <img class="now-playing-background" src="static/now-playing-background.png">
-        <div class="now-playing-song-background"></div>
-        <div class="now-playing-metadata now-playing-title">FUBUKI</div>
-        <div class="now-playing-metadata now-playing-artist">Shiena Nishizawa</div>
+        <div class="now-playing-song-background" id="now-playing-song-background"></div>
+        <div class="now-playing-metadata now-playing-title" id="now-playing-title">FUBUKI</div>
+        <div class="now-playing-metadata now-playing-artist" id="now-playing-artist">Shiena Nishizawa</div>
         <div class="now-playing-time-details">
             <div class="now-playing-timeline">
                 <div class="now-playing-timeline-background"></div>
@@ -163,5 +155,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Preload Images -->
+    <img class="preload-images" id="preload-images">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <button class="sidebar-button" onclick="showTeam(1)">Next Team</button>
+        <button class="sidebar-button" onclick="showTeam(-1)">Previous Team</button>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>

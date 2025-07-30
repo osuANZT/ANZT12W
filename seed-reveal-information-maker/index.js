@@ -38,8 +38,7 @@ function submit() {
             dt2Score: Number(textareaValueSplitIndividual[29]),
             dt3Score: Number(textareaValueSplitIndividual[30]),
             dtTotalRank: Number(textareaValueSplitIndividual[31]),
-            player1: textareaValueSplitIndividual[32],
-            player2: textareaValueSplitIndividual[33]
+            playerId: textareaValueSplitIndividual[32],
         }
         teams.push(teamData)
     }
