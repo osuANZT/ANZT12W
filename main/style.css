@@ -1,3 +1,15 @@
+@font-face {
+    font-family: "Torus";
+    src: url("../fonts/Torus\ Bold.otf");
+    font-weight: 700;
+}
+
+:root {
+    --profile-picture-width: 261px;
+    --player-ur-horizontal-alignment: 194px;
+    --player-stats-horizontal-alignment: 331px;
+}
+
 /* ===========================
    Main
 =========================== */
@@ -195,11 +207,101 @@
 }
 .score-display-bg-1st-layer { mix-blend-mode: lighten; }
 .score-display-bg-2nd-layer { 
-    mix-blend-mode: overlay;
+    background-blend-mode: overlay;
     bottom: 31px;
+    box-shadow: 0 0 29px 9px #0843c9;
+    border-radius: 70px;
 }
 .score-display-bg-3rd-layer {
     opacity: 0.53;
     mix-blend-mode: color;
     bottom: 31px;
 }
+/* ===========================
+   Profile Picture
+=========================== */
+.profile-picture {
+    position: absolute;
+    top: 78px;
+    width: var(--profile-picture-width);
+    height: 229px;
+    background-image: url(https://a.ppy.sh/4585661);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.53;
+}
+.profile-picture-left {
+    left: 48px;
+    border-radius: 70px 0 0 70px;
+}
+.profile-picture-right {
+    right: 48px;
+    border-radius: 0 70px 70px 0;
+}
+/* ===========================
+   Player UR
+=========================== */
+.player-ur {
+    position: absolute;
+    top: 78px;
+    font-size: 29px;
+    color: white;
+    font-weight: 700;
+    font-family: "Poppins";
+    text-shadow: 0px 2px 1.5px #000;
+    text-align: center;
+    width: var(--profile-picture-width)
+}
+.player-ur-left {
+    left: var(--player-ur-horizontal-alignment);
+    transform: translateX(-50%);
+}
+.player-ur-right {
+    right: var(--player-ur-horizontal-alignment);
+    transform: translateX(50%);
+}
+/* ===========================
+   Player PP
+=========================== */
+.player-pp {
+    position: absolute;
+    top: 80px;
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    font-family: "Torus";
+    text-shadow: 0px 3px 0px #000000;
+}
+.player-pp-left { left: var(--player-stats-horizontal-alignment); }
+.player-pp-right { right: var(--player-stats-horizontal-alignment); }
+/* ===========================
+   Player Hit Count
+=========================== */
+.player-hit-count {
+    position: absolute;
+    top: 122px;
+    font-size: 29px;
+    font-weight: 700;
+    font-family: "Poppins";
+    text-shadow: 0px 3px 0px #000000;
+    color: white;
+}
+.player-hit-count-100 { color: #9effa0; }
+.player-hit-count-50 { color: #B7D4FF; }
+.player-hit-count-miss { color: #FFA9A9; }
+.player-hit-count-left { left: var(--player-stats-horizontal-alignment); }
+.player-hit-count-right { right: var(--player-stats-horizontal-alignment); }
+/* ===========================
+   Player Accuracy
+=========================== */
+.player-accuracy {
+    position: absolute;
+    top: 175px;
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    font-family: "Poppins";
+    text-shadow: 0px 3px 0px #000000;
+}
+.player-accuracy-left { left: var(--player-stats-horizontal-alignment); }
+.player-accuracy-right { right: var(--player-stats-horizontal-alignment); }
