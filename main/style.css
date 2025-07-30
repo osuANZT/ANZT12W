@@ -116,3 +116,59 @@
 }
 .now-playing-bpm { width: 124px; }
 .now-playing-cs { width: 94px; }
+
+/* ===========================
+   Song Timelines
+=========================== */
+.now-playing-time-details {
+    font-family: "Poppins";
+    position: absolute;
+    bottom: 8px;
+    left: 13px;
+    text-align: right;
+    width: 397px;
+}
+.now-playing-timeline {
+    position: relative;
+    width: 397px;
+    height: 10px;
+}
+.now-playing-timeline-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.541;
+    width: 397px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #000000;
+}
+.now-playing-timeline-foreground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 228px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #ff524a;
+}
+.now-playing-timeline-circle {
+    position: absolute;
+    top: 50%;
+    left: 228px;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 20px;
+    background-color: #ff524a;
+    border: 4px solid #ce3b33;
+}
+.now-playing-timeline-details {
+    margin-top: 13px;
+    font-size: 21px;
+    color: white;
+    font-weight: 500;
+    width: 397px;
+    display: flex;
+    justify-content: space-between;
+}
