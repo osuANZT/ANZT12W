@@ -38,3 +38,81 @@
     border: 1px solid white;
     box-shadow: inset 0 0 24px 15px rgba(255, 255, 255, 0.69);
 }
+
+/* ===========================
+   Stats Container
+=========================== */
+.stats-container {
+    position: absolute;
+    bottom: 31px;
+    left: 50px;
+    width: 426px;
+    height: 229px;
+    border-radius: 20px;   
+    font-family: "Poppins";
+}
+.stats-container-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background-color: #262d32;
+    opacity: 0.67;
+}
+/* ===========================
+   Now Playing Background
+=========================== */
+.now-playing-background {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background-image: url("https://assets.ppy.sh/beatmaps/1942534/covers/cover.jpg");
+    background-position: center;
+    background-size: cover;
+}
+/* ===========================
+   Now Playing Title
+=========================== */
+.now-playing-title {
+    position: absolute;
+    top: 14px;
+    left: 108px;
+    font-size: 22px;
+    color: white;
+    font-weight: 700;
+}
+.now-playing-artist {
+    position: absolute;
+    top: 44px;
+    left: 108px;
+    font-size: 22px;
+    color: #c7c7c7;
+    font-weight: 500;
+}
+.now-playing-mod {
+    position: absolute;
+    right: -9px;
+    top: -7px;
+    width: 110px;
+}
+.now-playing-stats {
+    position: absolute;
+    top: 107px;
+    left: 16px;
+    display: flex;
+    font-size: 19px;
+    color: #c7c7c7;
+}
+.now-playing-bold { font-weight: 700; }
+.now-playing-star-rating { 
+    font-size: 22px;
+    color: #fcff00;
+    width: 95px;
+}
+.now-playing-bpm { width: 124px; }
+.now-playing-cs { width: 94px; }
