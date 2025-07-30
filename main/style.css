@@ -27,16 +27,14 @@
 /* ===========================
    Gameplay
 =========================== */
-.gameplay-barrier {
+.gameplay-border, .gameplay-mask-left, .gameplay-mask-right {
     position: absolute;
     top: 188px;
     left: 1px;
-    width: 2557px;
-    height: 960px;
-    border-radius: 40px;
-    background-color: #0F0;
-    border: 1px solid white;
-    box-shadow: inset 0 0 24px 15px rgba(255, 255, 255, 0.69);
+}
+.gameplay-mask-right {
+    left: unset;
+    right: 0;
 }
 
 /* ===========================
