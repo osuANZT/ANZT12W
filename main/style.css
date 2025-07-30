@@ -170,3 +170,36 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* ===========================
+   Score Display
+=========================== */
+.score-display {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1666px;
+    height: 338px;
+}
+/* ===========================
+   Score Background
+=========================== */
+.score-display-bg-1st-layer,
+.score-display-bg-2nd-layer,
+.score-display-bg-3rd-layer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.score-display-bg-1st-layer { mix-blend-mode: lighten; }
+.score-display-bg-2nd-layer { 
+    mix-blend-mode: overlay;
+    bottom: 31px;
+}
+.score-display-bg-3rd-layer {
+    opacity: 0.53;
+    mix-blend-mode: color;
+    bottom: 31px;
+}
