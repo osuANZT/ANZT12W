@@ -148,12 +148,19 @@ socket.onmessage = event => {
                 bpm = Math.round(bpm * 1.5)
             }
 
+            // Set Stats
             nowPlayingSrEl.textContent = Number(currentMappoolBeatmap.difficultyrating).toFixed(2)
             nowPlayingBpmEl.textContent = bpm
             nowPlayingCsEl.textContent = cs
             nowPlayingArEl.textContent = ar
+
+            // Title
+            nowPlayingTitleEl.style.width = "225px"
+            nowPlayingArtistEl.style.width = "225px"
         } else {
             nowPlayingModEl.style.display = "none"
+            nowPlayingTitleEl.style.width = "298px"
+            nowPlayingArtistEl.style.width = "298px"
         }
     }
 

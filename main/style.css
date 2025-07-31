@@ -97,6 +97,10 @@
     font-size: 22px;
     color: white;
     font-weight: 700;
+    width: 225px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .now-playing-artist {
     position: absolute;
@@ -105,6 +109,10 @@
     font-size: 22px;
     color: #c7c7c7;
     font-weight: 500;
+    width: 225px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .now-playing-mod {
     position: absolute;
