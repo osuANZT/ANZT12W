@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="../_shared/deps/reconnecting-websocket.min.js"></script>
+    <script src="../_shared/deps/countUp.js"></script>
     <script src="../_shared/utils.js"></script>
 </head>
 <body>
@@ -71,39 +72,43 @@
             <img class="score-display-bg-3rd-layer" src="static/score-section/stats-bg-3rd-color.png">
 
             <!-- Profile Pictures-->
-            <div class="profile-picture profile-picture-left"></div>
-            <div class="profile-picture profile-picture-right"></div>
+            <div class="profile-picture profile-picture-left" id="profile-picture-left"></div>
+            <div class="profile-picture profile-picture-right" id="profile-picture-right"></div>
 
             <!-- UR -->
-            <div class="player-ur player-ur-left">140.34UR</div>
-            <div class="player-ur player-ur-right">90.23UR</div>
+            <div class="player-ur player-ur-left" id="player-ur-left">140.34UR</div>
+            <div class="player-ur player-ur-right" id="player-ur-right">90.23UR</div>
 
             <!-- PP -->
-            <div class="player-pp player-pp-left">234pp</div>
-            <div class="player-pp player-pp-right">432pp</div>
+            <div class="player-pp player-pp-left" id="player-pp-left">234pp</div>
+            <div class="player-pp player-pp-right" id="player-pp-right">432pp</div>
 
             <!-- hit count -->
-            <div class="player-hit-count player-hit-count-left"><span class="player-hit-count-100">30</span> / <span class="player-hit-count-50">8</span> / <span class="player-hit-count-miss">10</span></div>
-            <div class="player-hit-count player-hit-count-right"><span class="player-hit-count-100">15</span> / <span class="player-hit-count-50">2</span> / <span class="player-hit-count-miss">4</span></div>
+            <div class="player-hit-count player-hit-count-left"><span class="player-hit-count-100" id="player-hit-count-100-left">30</span> / <span class="player-hit-count-50" id="player-hit-count-50-left">8</span> / <span class="player-hit-count-miss" id="player-hit-count-miss-left">10</span></div>
+            <div class="player-hit-count player-hit-count-right"><span class="player-hit-count-100" id="player-hit-count-100-right">15</span> / <span class="player-hit-count-50" id="player-hit-count-50-right">2</span> / <span class="player-hit-count-miss" id="player-hit-count-miss-right">4</span></div>
         
             <!-- acc -->
-            <div class="player-accuracy player-accuracy-left">92.45%</div>
-            <div class="player-accuracy player-accuracy-right">96.73%</div>
+            <div class="player-accuracy player-accuracy-left" id="player-accuracy-left">92.45%</div>
+            <div class="player-accuracy player-accuracy-right" id="player-accuracy-right">96.73%</div>
 
             <!-- Player Score Bar-->
-            <div class="player-score-bar player-score-bar-left"></div>
-            <div class="player-score-bar player-score-bar-right"></div>
+            <div class="player-score-bar player-score-bar-left" id=""></div>
+            <div class="player-score-bar player-score-bar-right" id=""></div>
 
             <!-- Player Scores -->
-            <div class="player-score player-score-left">123,456</div>
-            <div class="player-score player-score-right player-score-leading">234,567</div>
+            <div class="player-score player-score-left" id="player-score-left">123,456</div>
+            <div class="player-score player-score-right player-score-leading" id="player-score-right">234,567</div>
 
             <!-- Player Score Differences -->
-            <div class="player-score-difference player-score-difference-left">-111,111</div>
-            <div class="player-score-difference player-score-difference-right">-111,111</div>
+            <div class="player-score-difference player-score-difference-left" id="player-score-difference-left">-111,111</div>
+            <div class="player-score-difference player-score-difference-right" id="player-score-difference-right">-111,111</div>
         
             <!-- Acc Diff --> 
-            <div class="accuracy-difference"><span>-</span><span class="accuracy-difference-number">4.28%</span><span>+</span></div>
+            <div class="accuracy-difference">
+                <span id="accuracy-difference-left">-</span>
+                <span class="accuracy-difference-number" id="accuracy-difference-number">4.28%</span>
+                <span id="accuracy-difference-right">+</span>
+            </div>
         </div>
     </div>
 

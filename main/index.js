@@ -36,6 +36,68 @@ const nowPlayingTimelineCircleEl = document.getElementById("now-playing-timeline
 const nowPlayingCurrentTimeEl = document.getElementById("now-playing-current-time")
 const nowPlayingEndTimeEl = document.getElementById("now-playing-end-time")
 
+// Profile Pictures
+const profilePictureLeftEl = document.getElementById("profile-picture-left")
+const profilePictureRightEl = document.getElementById("profile-picture-right")
+let currentPlayerId1, currentPlayerId2
+
+// UR
+const playerUrLeftEl = document.getElementById("player-ur-left")
+const playerUrRightEl = document.getElementById("player-ur-right")
+// PP
+const playerPpLeftEl = document.getElementById("player-pp-left")
+const playerPpRightEl = document.getElementById("player-pp-right")
+// Hit Counts
+const playerHitCount100LeftEl = document.getElementById("player-hit-count-100-left")
+const playerHitCount50LeftEl = document.getElementById("player-hit-count-50-left")
+const playerHitCountMissLeftEl = document.getElementById("player-hit-count-miss-left")
+const playerHitCount100RightEl = document.getElementById("player-hit-count-100-right")
+const playerHitCount50RightEl = document.getElementById("player-hit-count-50-right")
+const playerHitCountMissRightEl = document.getElementById("player-hit-count-miss-right")
+// Acc
+const playerAccuracyLeftEl = document.getElementById("player-accuracy-left")
+const playerAccuracyRightEl = document.getElementById("player-accuracy-right")
+let currentPlayerAccuracyLeft, currentPlayerAccuracyRight
+// Player scores
+const playerScoreLeftEl = document.getElementById("player-score-left")
+const playerScoreRightEl = document.getElementById("player-score-right")
+let currentPlayerScoreLeft, currentPlayerScoreRight
+// Player score difference
+const playerScoreDifferenceLeftEl = document.getElementById("player-score-difference-left")
+const playerScoreDifferenceRightEl = document.getElementById("player-score-difference-right")
+// Accuracy difference
+const accuracyDifferenceLeftEl = document.getElementById("accuracy-difference-left")
+const accuracyDifferenceNumberEl = document.getElementById("accuracy-difference-number")
+const accuracyDifferenceRightEl = document.getElementById("accuracy-difference-right")
+
+// Animation
+const animation = {
+    // UR
+    "playerUrLeft": new CountUp(playerUrLeftEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "UR"}),
+    "playerUrRight": new CountUp(playerUrRightEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "UR"}),
+    // PP
+    "playerPpLeft": new CountUp(playerPpLeftEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "pp"}),
+    "playerPpRight": new CountUp(playerPpRightEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "pp"}),
+    // Hit Count
+    "playerHitCount100Left": new CountUp(playerHitCount100LeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "playerHitCount50Left": new CountUp(playerHitCount50LeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "playerHitCountMissLeft": new CountUp(playerHitCountMissLeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "playerHitCount100Right": new CountUp(playerHitCount100RightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "playerHitCount50Right": new CountUp(playerHitCount50RightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    "playerHitCountMissRight": new CountUp(playerHitCountMissRightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    // Acc
+    "playerAccuracyLeft": new CountUp(playerAccuracyLeftEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "%" }),
+    "playerAccuracyRight": new CountUp(playerAccuracyRightEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "%" }),
+    // Player Score
+    "playerScoreLeft": new CountUp(playerScoreLeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "."}),
+    "playerScoreRight": new CountUp(playerScoreRightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "."}),
+    // Player Score Difference
+    "playerScoreDifferenceLeft": new CountUp(playerScoreDifferenceLeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "."}),
+    "playerScoreDifferenceRight": new CountUp(playerScoreDifferenceRightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "."}),
+    // Accuracy Difference
+    "accuracyDifferenceNumber": new CountUp(accuracyDifferenceNumberEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "%" }),
+}
+
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -175,4 +237,83 @@ socket.onmessage = event => {
     const timelineWidth = 298 * data.beatmap.time.live / data.beatmap.time.mp3Length
     nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
     nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
+
+    // Profile picture
+    if (currentPlayerId1 !== data.tourney.clients[0].user.id) {
+        currentPlayerId1 = data.tourney.clients[0].user.id
+        profilePictureLeftEl.style.backgroundImage = `url("https://a.ppy.sh/${currentPlayerId1}")`
+    }
+    if (currentPlayerId2 !== data.tourney.clients[1].user.id) {
+        currentPlayerId2 = data.tourney.clients[1].user.id
+        profilePictureRightEl.style.backgroundImage = `url("https://a.ppy.sh/${currentPlayerId2}")`
+    }
+
+    // Update stats
+    // UR
+    animation.playerUrLeft.update(data.tourney.clients[0].play.unstableRate)
+    animation.playerUrRight.update(data.tourney.clients[1].play.unstableRate)
+    // PP
+    animation.playerPpLeft.update(data.tourney.clients[0].play.pp.current)
+    animation.playerPpRight.update(data.tourney.clients[1].play.pp.current)
+    // Hit Count
+    animation.playerHitCount100Left.update(data.tourney.clients[0].play.hits["100"])
+    animation.playerHitCount50Left.update(data.tourney.clients[0].play.hits["50"])
+    animation.playerHitCountMissLeft.update(data.tourney.clients[0].play.hits["0"])
+    animation.playerHitCount100Right.update(data.tourney.clients[1].play.hits["100"])
+    animation.playerHitCount50Right.update(data.tourney.clients[1].play.hits["50"])
+    animation.playerHitCountMissRight.update(data.tourney.clients[1].play.hits["0"])
+    // Accuracy
+    currentPlayerAccuracyLeft = data.tourney.clients[0].play.accuracy
+    currentPlayerAccuracyRight = data.tourney.clients[1].play.accuracy
+    animation.playerAccuracyLeft.update(currentPlayerAccuracyLeft)
+    animation.playerAccuracyRight.update(currentPlayerAccuracyRight)
+    // Player Score
+    currentPlayerScoreLeft = data.tourney.clients[0].play.score
+    currentPlayerScoreRight = data.tourney.clients[1].play.score
+    animation.playerScoreLeft.update(currentPlayerScoreLeft)
+    animation.playerScoreRight.update(currentPlayerScoreRight)
+    // Player Score Difference
+    animation.playerScoreDifferenceLeft.update(data.tourney.clients[0].play.score - data.tourney.clients[1].play.score)
+    animation.playerScoreDifferenceRight.update(data.tourney.clients[1].play.score - data.tourney.clients[0].play.score)
+    // Accuracy
+    animation.accuracyDifferenceNumber.update(Math.abs(data.tourney.clients[0].play.accuracy - data.tourney.clients[1].play.accuracy))
+
+    // Conditions for score
+    if (currentPlayerScoreLeft > currentPlayerScoreRight) {
+        // Score
+        playerScoreLeftEl.classList.add("player-score-leading")
+        playerScoreRightEl.classList.remove("player-score-leading")
+
+        // Score differnece
+        playerScoreDifferenceLeftEl.style.display = "none"
+        playerScoreDifferenceRightEl.style.display = "block"
+    } else if (currentPlayerScoreLeft < currentPlayerScoreRight) {
+        // Score
+        playerScoreLeftEl.classList.remove("player-score-leading")
+        playerScoreRightEl.classList.add("player-score-leading")
+
+        // Score differnece
+        playerScoreDifferenceLeftEl.style.display = "block"
+        playerScoreDifferenceRightEl.style.display = "none"
+    } else if (currentPlayerScoreLeft === currentPlayerScoreRight) {
+        // Score
+        playerScoreLeftEl.classList.remove("player-score-leading")
+        playerScoreRightEl.classList.remove("player-score-leading")
+
+        // Score differnece
+        playerScoreDifferenceLeftEl.style.display = "none"
+        playerScoreDifferenceRightEl.style.display = "none"
+    }
+
+    // Conditions for accuracy
+    if (currentPlayerAccuracyLeft > currentPlayerAccuracyRight) {
+        accuracyDifferenceLeftEl.textContent = "+"
+        accuracyDifferenceRightEl.textContent = "-"
+    } else if (currentPlayerAccuracyLeft < currentPlayerAccuracyRight) {
+        accuracyDifferenceLeftEl.textContent = "-"
+        accuracyDifferenceRightEl.textContent = "+"
+    } else if (currentPlayerAccuracyLeft === currentPlayerAccuracyRight) {
+        accuracyDifferenceLeftEl.textContent = ""
+        accuracyDifferenceRightEl.textContent = "" 
+    }
 }
