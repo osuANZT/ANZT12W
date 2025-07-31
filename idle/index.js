@@ -1,8 +1,17 @@
 // Set round
 const roundNameEl = document.getElementById("round-name")
 const matchTypeEl = document.getElementById("match-type")
+matchTypeEl.value = getCookie("matchType")
+roundNameEl.value = getCookie("roundName")
 const currentStreamEl = document.getElementById("current-stream")
-const setIdleTitle = () => currentStreamEl.setAttribute("src", `static/idle-icons/${matchTypeEl.value}-${roundNameEl.value}.png`)
+const setIdleTitle = () => {
+    currentStreamEl.setAttribute("src", `static/idle-icons/${matchTypeEl.value}-${roundNameEl.value}.png`)
+    document.cookie = `matchType=${matchTypeEl.value}; path=/`
+    document.cookie = `roundName=${roundNameEl.value}; path=/`
+}
+
+// Set title
+if (matchTypeEl.value && roundNameEl.value) setIdleTitle()
 
 // Now Playing Information
 const backgroundImageEl = document.getElementById("background-image")

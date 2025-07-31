@@ -74,6 +74,11 @@ const accuracyDifferenceRightEl = document.getElementById("accuracy-difference-r
 const playerScoreBarLeftEl = document.getElementById("player-score-bar-left")
 const playerScoreBarRightEl = document.getElementById("player-score-bar-right")
 
+// Scores + Score Visible
+const scoresEl = document.getElementById("scores")
+let isScoreVisible
+let isStarVisible
+
 // Animation
 const animation = {
     // UR
@@ -102,6 +107,10 @@ const animation = {
     "accuracyDifferenceNumber": new CountUp(accuracyDifferenceNumberEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "%" }),
 }
 
+// Chat stuff
+const chatDisplayEl = document.getElementById("chat-display")
+let chatLen = 0
+
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -114,6 +123,20 @@ socket.onmessage = event => {
     if (currentPlayerNameRight !== data.tourney.team.right) {
         currentPlayerNameRight = data.tourney.team.right
         playerNameRightEl.textContent = currentPlayerNameRight 
+    }
+
+    console.log(data)
+    // Star Visible
+    if (isStarVisible !== data.tourney.starsVisible) {
+        isStarVisible = data.tourney.starsVisible
+
+        if (isStarVisible) {
+            playerStarContainerLeftEl.style.display = "flex"
+            playerStarContainerRightEl.style.display = "flex"
+        } else {
+            playerStarContainerLeftEl.style.display = "none"
+            playerStarContainerRightEl.style.display = "none"
+        }
     }
 
     // Player Star Container
@@ -283,7 +306,7 @@ socket.onmessage = event => {
     animation.accuracyDifferenceNumber.update(Math.abs(data.tourney.clients[0].play.accuracy - data.tourney.clients[1].play.accuracy))
 
     // Score bar width
-    let movingScoreBarDifferencePercent = Math.min(currentScoreDelta / 300000, 1)
+    let movingScoreBarDifferencePercent = Math.min(scoreDifference / 300000, 1)
     let movingScoreBarRectangleWidth = Math.min(Math.pow(movingScoreBarDifferencePercent, 0.5) * 400, 400)
 
     // Conditions for score
@@ -335,5 +358,46 @@ socket.onmessage = event => {
     } else if (currentPlayerAccuracyLeft === currentPlayerAccuracyRight) {
         accuracyDifferenceLeftEl.textContent = ""
         accuracyDifferenceRightEl.textContent = "" 
+    }
+
+    // This is also mostly taken from Victim Crasher: https://github.com/VictimCrasher/static/tree/master/WaveTournament
+    if (chatLen !== data.tourney.chat.length) {
+        (chatLen === 0 || chatLen > data.tourney.chat.length) ? (chatDisplayEl.innerHTML = "", chatLen = 0) : null
+        const fragment = document.createDocumentFragment()
+
+        for (let i = chatLen; i < data.tourney.chat.length; i++) {
+            // Chat message container
+            const chatMessageContainer = document.createElement("div")
+            chatMessageContainer.classList.add("chat-message-container")  
+
+            // Name
+            const chatMessageName = document.createElement("div")
+            chatMessageName.classList.add("chat-message-name", data.tourney.chat[i].team)
+            chatMessageName.textContent = data.tourney.chat[i].name
+
+            // Message
+            const chatMessageContent = document.createElement("div")
+            chatMessageContent.classList.add("chat-message-content")
+            chatMessageContent.innerText = data.tourney.chat[i].message
+
+            chatMessageContainer.append(chatMessageName, chatMessageContent)
+            fragment.append(chatMessageContainer)
+        }
+
+        chatDisplayEl.append(fragment)
+        chatLen = data.tourney.chat.length
+        chatDisplayEl.scrollTop = chatDisplayEl.scrollHeight
+    }
+
+    // Score Visibility
+    if (isScoreVisible !== data.tourney.scoreVisible) {
+        isScoreVisible = data.tourney.scoreVisible
+        if (isScoreVisible) {
+            scoresEl.style.opacity = 1
+            chatDisplayEl.style.opacity = 0
+        } else {
+            scoresEl.style.opacity = 0
+            chatDisplayEl.style.opacity = 1
+        }
     }
 }
