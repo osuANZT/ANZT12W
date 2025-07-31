@@ -30,6 +30,11 @@ const nowPlayingBpmEl = document.getElementById("now-playing-bpm")
 const nowPlayingCsEl = document.getElementById("now-playing-cs")
 const nowPlayingArEl = document.getElementById("now-playing-ar")
 let currentId, currentChecksum, currentMappoolBeatmap
+// Now Playing Timeline Information
+const nowPlayingTimelineForegroundEl = document.getElementById("now-playing-timeline-foreground")
+const nowPlayingTimelineCircleEl = document.getElementById("now-playing-timeline-circle")
+const nowPlayingCurrentTimeEl = document.getElementById("now-playing-current-time")
+const nowPlayingEndTimeEl = document.getElementById("now-playing-end-time")
 
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -90,9 +95,40 @@ socket.onmessage = event => {
         currentMappoolBeatmap = findBeatmaps(currentId)
 
         // Metadata
-        nowPlayingBackgroundEl.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${data.beatmap.set}/covers/cover.jpg")`
+        const backgroundUrl = data.directPath.beatmapBackground.replace(/\\/g, "/")
+        const imagePath = `../../Songs/${backgroundUrl}?a=${Math.random(10000)}`
+        nowPlayingBackgroundEl.style.backgroundImage = `url("${imagePath}")`
         nowPlayingTitleEl.textContent = data.beatmap.title
         nowPlayingArtistEl.textContent = data.beatmap.artist
+
+        // Get dominant colour
+        const img = new Image()
+        img.crossOrigin = "anonymous"
+        img.src = imagePath
+
+        img.onload = function () {
+            // Get base colour
+            const colorThief = new ColorThief()
+            const baseColor = colorThief.getColor(img)
+
+            // Get scaled colour based on baseColor
+            let scaledColor = baseColor
+            let multiplier = 1
+            while (scaledColor.reduce((a, b) => a + b, 0) < 500) {
+                multiplier += 0.1
+                scaledColor = baseColor.map(c => c * multiplier)
+            }
+            const borderColor = scaledColor.map(c => Math.round(c * 0.8))
+
+            // Set backgrounds / borders
+            nowPlayingBackgroundEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
+            nowPlayingTimelineForegroundEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
+            nowPlayingTimelineCircleEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
+            nowPlayingTimelineCircleEl.style.borderColor = `rgb(${borderColor.join(",")})`
+        
+            // Set end time
+            nowPlayingEndTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.mp3Length / 1000))
+        }
         
         if (currentMappoolBeatmap) {
             nowPlayingModEl.style.display = "block"
@@ -127,4 +163,9 @@ socket.onmessage = event => {
         nowPlayingCsEl.textContent = Number(data.beatmap.stats.cs.converted)
         nowPlayingArEl.textContent = Number(data.beatmap.stats.ar.converted)
     }
+
+    nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.live / 1000))
+    const timelineWidth = 298 * data.beatmap.time.live / data.beatmap.time.mp3Length
+    nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
+    nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
 }
