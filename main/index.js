@@ -70,14 +70,18 @@ const accuracyDifferenceLeftEl = document.getElementById("accuracy-difference-le
 const accuracyDifferenceNumberEl = document.getElementById("accuracy-difference-number")
 const accuracyDifferenceRightEl = document.getElementById("accuracy-difference-right")
 
+// Score Bar
+const playerScoreBarLeftEl = document.getElementById("player-score-bar-left")
+const playerScoreBarRightEl = document.getElementById("player-score-bar-right")
+
 // Animation
 const animation = {
     // UR
     "playerUrLeft": new CountUp(playerUrLeftEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "UR"}),
     "playerUrRight": new CountUp(playerUrRightEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "UR"}),
     // PP
-    "playerPpLeft": new CountUp(playerPpLeftEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "pp"}),
-    "playerPpRight": new CountUp(playerPpRightEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "pp"}),
+    "playerPpLeft": new CountUp(playerPpLeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "pp"}),
+    "playerPpRight": new CountUp(playerPpRightEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: ".", suffix: "pp"}),
     // Hit Count
     "playerHitCount100Left": new CountUp(playerHitCount100LeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
     "playerHitCount50Left": new CountUp(playerHitCount50LeftEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
@@ -101,7 +105,6 @@ const animation = {
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    console.log(data)
 
     // Player Names
     if (currentPlayerNameLeft !== data.tourney.team.left) {
@@ -273,10 +276,15 @@ socket.onmessage = event => {
     animation.playerScoreLeft.update(currentPlayerScoreLeft)
     animation.playerScoreRight.update(currentPlayerScoreRight)
     // Player Score Difference
-    animation.playerScoreDifferenceLeft.update(data.tourney.clients[0].play.score - data.tourney.clients[1].play.score)
-    animation.playerScoreDifferenceRight.update(data.tourney.clients[1].play.score - data.tourney.clients[0].play.score)
+    let scoreDifference = Math.abs(data.tourney.clients[0].play.score - data.tourney.clients[1].play.score)
+    animation.playerScoreDifferenceLeft.update(-scoreDifference)
+    animation.playerScoreDifferenceRight.update(-scoreDifference)
     // Accuracy
     animation.accuracyDifferenceNumber.update(Math.abs(data.tourney.clients[0].play.accuracy - data.tourney.clients[1].play.accuracy))
+
+    // Score bar width
+    let movingScoreBarDifferencePercent = Math.min(currentScoreDelta / 300000, 1)
+    let movingScoreBarRectangleWidth = Math.min(Math.pow(movingScoreBarDifferencePercent, 0.5) * 400, 400)
 
     // Conditions for score
     if (currentPlayerScoreLeft > currentPlayerScoreRight) {
@@ -287,6 +295,10 @@ socket.onmessage = event => {
         // Score differnece
         playerScoreDifferenceLeftEl.style.display = "none"
         playerScoreDifferenceRightEl.style.display = "block"
+
+        // Score bar
+        playerScoreBarLeftEl.style.width = `${movingScoreBarRectangleWidth}px`
+        playerScoreBarRightEl.style.width = `0px`
     } else if (currentPlayerScoreLeft < currentPlayerScoreRight) {
         // Score
         playerScoreLeftEl.classList.remove("player-score-leading")
@@ -295,6 +307,10 @@ socket.onmessage = event => {
         // Score differnece
         playerScoreDifferenceLeftEl.style.display = "block"
         playerScoreDifferenceRightEl.style.display = "none"
+
+        // Score bar
+        playerScoreBarLeftEl.style.width = `0px`
+        playerScoreBarRightEl.style.width = `${movingScoreBarRectangleWidth}px`
     } else if (currentPlayerScoreLeft === currentPlayerScoreRight) {
         // Score
         playerScoreLeftEl.classList.remove("player-score-leading")
@@ -303,6 +319,10 @@ socket.onmessage = event => {
         // Score differnece
         playerScoreDifferenceLeftEl.style.display = "none"
         playerScoreDifferenceRightEl.style.display = "none"
+
+        // Score bar
+        playerScoreBarLeftEl.style.width = `0px`
+        playerScoreBarRightEl.style.width = `0px`
     }
 
     // Conditions for accuracy

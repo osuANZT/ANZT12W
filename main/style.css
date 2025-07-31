@@ -321,7 +321,7 @@
 .player-score-bar {
     position: absolute;
     top: var(--score-display-vertical-alignment);
-    width: 206px;
+    width: 400px;
     height: 7px;
     background-color: white;
     transition: 500ms ease-in-out;
