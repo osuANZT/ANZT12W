@@ -1,3 +1,16 @@
+// Title
+const titleEl = document.getElementById("title")
+let allBeatmaps
+async function getBeatmaps() {
+    const response = await axios.get("../_data/beatmaps.json")
+    titleEl.setAttribute("src", `static/titles/${response.data.roundName}-match.png`)
+    allBeatmaps = response.data.beatmaps
+}
+getBeatmaps()
+// Find Beatmaps
+const findBeatmaps = beatmapId => allBeatmaps.find(beatmap => Number(beatmap.beatmap_id) === Number(beatmapId))
+
+
 // Player names
 const playerNameLeftEl = document.getElementById("player-name-left")
 const playerNameRightEl = document.getElementById("player-name-right")
