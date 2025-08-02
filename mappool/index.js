@@ -331,7 +331,7 @@ socket.onmessage = event => {
             let winner = currentLeftScore > currentRightScore ? "red" : currentRightScore > currentLeftScore ? "blue" : ""
 
             // Set tile
-            currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}.png`)
+            currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
         }
     }
 }

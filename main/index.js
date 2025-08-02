@@ -220,7 +220,7 @@ socket.onmessage = event => {
         
         if (currentMappoolBeatmap) {
             nowPlayingModEl.style.display = "block"
-            nowPlayingModEl.setAttribute("src", `../_shared/assets/mods/${currentMappoolBeatmap.mods.toLowerCase()}${currentMappoolBeatmap.order}.png`)
+            nowPlayingModEl.setAttribute("src", `../_shared/assets/mods/${currentMappoolBeatmap.mod.toLowerCase()}${currentMappoolBeatmap.order}.png`)
 
             let cs = Number(currentMappoolBeatmap.diff_size)
             let ar = Number(currentMappoolBeatmap.diff_approach)
