@@ -260,7 +260,7 @@ socket.onmessage = event => {
     }
 
     nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.live / 1000))
-    const timelineWidth = 298 * data.beatmap.time.live / data.beatmap.time.mp3Length
+    const timelineWidth = Math.min(397 * data.beatmap.time.live / data.beatmap.time.mp3Length, 397)
     nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
     nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
 
