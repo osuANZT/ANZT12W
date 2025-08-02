@@ -1,0 +1,19 @@
+/* ===========================
+   Gameplay
+=========================== */
+body > *::-webkit-scrollbar { display: none; }
+.gameplay-background { 
+    background-color: #2177E0;
+    width: 2560px;
+    height: 960px;
+    border: none;
+}
+.gameplay-border, .gameplay-mask-left, .gameplay-mask-right, .gameplay-background {
+    position: absolute;
+    top: 188px;
+    left: 1px;
+}
+.gameplay-mask-right {
+    left: unset;
+    right: 0;
+}

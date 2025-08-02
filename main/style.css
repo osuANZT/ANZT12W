@@ -37,19 +37,6 @@
 }
 
 /* ===========================
-   Gameplay
-=========================== */
-.gameplay-border, .gameplay-mask-left, .gameplay-mask-right {
-    position: absolute;
-    top: 188px;
-    left: 1px;
-}
-.gameplay-mask-right {
-    left: unset;
-    right: 0;
-}
-
-/* ===========================
    Stats Container
 =========================== */
 .stats-container {

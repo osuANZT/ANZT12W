@@ -322,17 +322,17 @@ socket.onmessage = event => {
     // IPC State
     if (ipcState !== data.tourney.ipcState) {
         ipcState = data.tourney.ipcState
-        if (ipcState === 4 && !checkedWinner && currentPickedTile && isStarToggled) {
-            checkedWinner = true
+        // if (ipcState === 4 && !checkedWinner && currentPickedTile && isStarToggled) {
+        //     checkedWinner = true
 
-            // Set winner
-            currentLeftScore = data.tourney.totalScore.left
-            currentRightScore = data.tourney.totalScore.right
-            let winner = currentLeftScore > currentRightScore ? "red" : currentRightScore > currentLeftScore ? "blue" : ""
+        //     // Set winner
+        //     currentLeftScore = data.tourney.totalScore.left
+        //     currentRightScore = data.tourney.totalScore.right
+        //     let winner = currentLeftScore > currentRightScore ? "red" : currentRightScore > currentLeftScore ? "blue" : ""
 
-            // Set tile
-            currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
-        }
+        //     // Set tile
+        //     currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
+        // }
     }
 }
 
@@ -350,6 +350,8 @@ let isAutopickToggled = false
 function toggleAutopick() {
     isAutopickToggled = !isAutopickToggled
     toggleAutopickEl.textContent = `Toggle Autopick: ${isAutopickToggled? "ON": "OFF"}`
+    toggleAutopickEl.classList.remove(`toggle-${isAutopickToggled? "in" : ""}active`)
+    toggleAutopickEl.classList.add(`toggle-${isAutopickToggled? "" : "in"}active`)
 }
 
 // Toggle Animation
@@ -358,4 +360,6 @@ let isAnimationToggled = false
 function toggleAnimation() {
     isAnimationToggled = !isAnimationToggled
     toggleAnimaionEl.textContent = `Toggle Animation: ${isAnimationToggled? "ON": "OFF"}`
+    toggleAnimaionEl.classList.remove(`toggle-${isAnimationToggled? "in" : ""}active`)
+    toggleAnimaionEl.classList.add(`toggle-${isAnimationToggled? "" : "in"}active`)
 }
