@@ -208,8 +208,8 @@
     border-radius: 70px;
 }
 .score-display-bg-3rd-layer {
-    opacity: 0.53;
-    mix-blend-mode: color;
+    width: 1569px;
+    opacity: 0.83;
     bottom: 31px;
 }
 /* ===========================
