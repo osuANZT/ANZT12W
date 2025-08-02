@@ -111,6 +111,9 @@ const animation = {
 const chatDisplayEl = document.getElementById("chat-display")
 let chatLen = 0
 
+// IPC State
+let ipcState
+
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -215,7 +218,9 @@ socket.onmessage = event => {
             nowPlayingTimelineCircleEl.style.borderColor = `rgb(${borderColor.join(",")})`
         
             // Set end time
-            nowPlayingEndTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.mp3Length / 1000))
+            let mp3Length = data.beatmap.time.mp3Length
+            if (currentMappoolBeatmap && currentMappoolBeatmap.mod === "DT") mp3Length /= 1.5
+            nowPlayingEndTimeEl.textContent = setLengthDisplay(Math.round(mp3Length / 1000))
         }
         
         if (currentMappoolBeatmap) {
@@ -259,7 +264,14 @@ socket.onmessage = event => {
         nowPlayingArEl.textContent = Number(data.beatmap.stats.ar.converted)
     }
 
-    nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.live / 1000))
+    // Set IPC State
+    if (ipcState !== data.tourney.ipcState) ipcState = data.tourney.ipcState
+
+    // Set live stuff
+    let live = ipcState === 2 ? 0 : data.beatmap.time.live
+    console.log(live)
+    if (currentMappoolBeatmap && currentMappoolBeatmap.mod === "DT") live /= 1.5
+    nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(live / 1000))
     const timelineWidth = Math.min(397 * data.beatmap.time.live / data.beatmap.time.mp3Length, 397)
     nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
     nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
