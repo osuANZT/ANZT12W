@@ -5,14 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../_shared//shared.css">
+    <link rel="stylesheet" href="../_shared/gameplay-mappool.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main">
+        <!-- Title Stuff -->
         <img class="logo" src="../_shared/assets/logo.png">
         <img class="title-background" src="../_shared/assets/title-bg-overlay-75opac.png">
         <img class="title" id="title" src="../_shared/assets/titles/f-match.png">
+    
+        <!-- Results -->
+        <img class="results-bg" src="static/results-bg.png">
+        <!-- Player Logos -->
+        <div class="player-logo player-logo-left"></div>
+        <div class="player-logo player-logo-right"></div>
+        <!-- Win Status -->
+        <img class="win-status win-status-left" src="static/win-status/LOSER.png">
+        <img class="win-status win-status-right" src="static/win-status/WINNER.png">
+        <!-- Player Names -->
+        <div class="player-name player-name-left" id="player-name-left"></div>
+        <div class="player-name player-name-right" id="player-name-right"></div>
+        <!-- Average Details -->
+        <div class="average-details average-details-left">
+            <div class="average-score">Avg. Score: <span class="average-details-number">666,444</span></div>
+            <div class="average-acc">Avg. Acc: <span class="average-details-number">95.34%</span></div>
+        </div>
+        <div class="average-details average-details-right">
+            <div class="average-score">Avg. Score: <span class="average-details-number">666,444</span></div>
+            <div class="average-acc">Avg. Acc: <span class="average-details-number">95.34%</span></div>
+        </div>
+        <!-- Scoreline -->
+        <div class="scoreline"><span>1</span> - <span>5</span></div>
     </div>
     
     <script src="index.js"></script>

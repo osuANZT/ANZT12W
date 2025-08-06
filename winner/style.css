@@ -1,3 +1,16 @@
+@font-face {
+    font-family: "Torus";
+    src: url("../fonts/Torus\ Bold.otf");
+    font-weight: 700;
+}
+
+:root {
+    --player-logo-horizontal-alignment: 523px;
+    --win-status-horizontal-alignment: 800px;
+    --player-name-horizontal-alignment: 825px;
+    --average-details-horizontal-alignment: 830px;
+}
+
 /* ===========================
    Main
 =========================== */
@@ -27,4 +40,89 @@
     top: 129px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* ===========================
+   Results Background
+=========================== */
+.results-bg {
+    position: absolute;
+    top: 353px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1956px;
+    height: 481px;
+}
+
+/* ===========================
+    Player Logos
+=========================== */
+.player-logo {
+    --dimension: 261px;
+    position: absolute;
+    top: 456px;    
+    width: var(--dimension);
+    height: var(--dimension);
+    background-size: cover;
+    box-shadow: 0 0 18px 0.9px #000;
+}
+.player-logo-left {
+    left: var(--player-logo-horizontal-alignment);
+    background-image: url(https://a.ppy.sh/9574522);
+}
+.player-logo-right {
+    right: var(--player-logo-horizontal-alignment);
+    background-image: url(https://a.ppy.sh/9536345);
+}
+
+/* ===========================
+    Win Status
+=========================== */
+.win-status { 
+    position: absolute;
+    top: 430px;
+}
+.win-status-left { left: var(--win-status-horizontal-alignment); }
+.win-status-right { right: var(--win-status-horizontal-alignment); }
+
+/* ===========================
+    Player Name
+=========================== */
+.player-name { top: 540px; }
+.player-name-left { left: var(--player-name-horizontal-alignment); }
+.player-name-right { right: var(--player-name-horizontal-alignment); }
+
+/* ===========================
+    Average Details
+=========================== */
+.average-details {
+    position: absolute;
+    top: 600px;
+    font-size: 21px;
+    color: #ddd;
+    font-weight: 700;
+    font-family: "Torus";
+}
+.average-details-number { 
+    color: white;
+    font-size: 23px;
+}
+.average-details-left { left: var(--average-details-horizontal-alignment); }
+.average-details-right {
+    right: var(--average-details-horizontal-alignment);
+    text-align: right;
+}
+
+/* ===========================
+    Scoreline
+=========================== */
+.scoreline {
+    position: absolute;
+    top: 422px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 89px;
+    color: #ffffff;
+    font-weight: 700;
+    font-family: "Torus";
 }
