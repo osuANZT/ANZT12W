@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="../_shared//shared.css">
     <link rel="stylesheet" href="../_shared/gameplay-mappool.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../_shared/now-playing-bottom-corner.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main">
@@ -44,6 +49,23 @@
             <img class="chat-display-background" src="static/chat/chat-bg.png">
             <img class="chat-text-image" src="static/chat/chat-text.png">
             <div class="chat-display-container" id="chat-display-container"></div>
+        </div>
+
+        <!-- Now Playing Section -->
+        <img class="now-playing-background" src="static/now-playing-background.png">
+        <div class="now-playing-song-background" id="now-playing-song-background"></div>
+        <div class="now-playing-metadata now-playing-title" id="now-playing-title">FUBUKI</div>
+        <div class="now-playing-metadata now-playing-artist" id="now-playing-artist">Shiena Nishizawa</div>
+        <div class="now-playing-time-details">
+            <div class="now-playing-timeline">
+                <div class="now-playing-timeline-background"></div>
+                <div class="now-playing-timeline-foreground" id="now-playing-timeline-foreground"></div>
+                <div class="now-playing-timeline-circle" id="now-playing-timeline-circle"></div>
+            </div>
+            <div class="now-playing-timeline-details">
+                <div class="now-playing-current-time" id="now-playing-current-time">0:56</div>
+                <div class="now-playing-end-time" id="now-playing-end-time">4:06</div>
+            </div>
         </div>
     </div>
     
