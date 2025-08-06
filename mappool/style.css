@@ -157,11 +157,12 @@
 =========================== */
 .chat-display {
     position: absolute;
-    bottom: 10px;
+    bottom: 263px;
     left: 50%;
     transform: translateX(-50%);
     width: 1576px;
     height: 359px;
+    mix-blend-mode: overlay;
 }
 .chat-display > * {
     position: absolute;
