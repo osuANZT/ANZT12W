@@ -3,7 +3,7 @@ const titleEl = document.getElementById("title")
 let allBeatmaps
 async function getBeatmaps() {
     const response = await axios.get("../_data/beatmaps.json")
-    titleEl.setAttribute("src", `static/titles/${response.data.roundName}-match.png`)
+    titleEl.setAttribute("src", `../_shared/assets/titles/${response.data.roundName}-match.png`)
     allBeatmaps = response.data.beatmaps
 }
 getBeatmaps()
@@ -269,7 +269,6 @@ socket.onmessage = event => {
 
     // Set live stuff
     let live = ipcState === 2 ? 0 : data.beatmap.time.live
-    console.log(live)
     if (currentMappoolBeatmap && currentMappoolBeatmap.mod === "DT") live /= 1.5
     nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(live / 1000))
     const timelineWidth = Math.min(397 * data.beatmap.time.live / data.beatmap.time.mp3Length, 397)
