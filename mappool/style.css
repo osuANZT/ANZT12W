@@ -170,6 +170,9 @@
     background-color: #2183DD;
     color: white;
 }
+.sidebar-section {
+    margin-bottom: 100px;
+}
 h1, h2 {
     text-align: center;
     width: 100%;
@@ -290,4 +293,20 @@ p {
     transform: translateX(50%);
     color: #fcff00;
     font-weight: 700;
+}
+
+/* ===========================
+   Input
+=========================== */
+input {
+    background-color: transparent;
+    width: 250px;
+    margin-left: 50px;
+    color: white;
+    border: none;
+    border-bottom: 4px solid white;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: inherit;
+    font-weight: inherit;
 }

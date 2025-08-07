@@ -1,3 +1,23 @@
+// Get osu! API
+let osuApi
+async function getOsuApi() {
+    const response = await fetch("../_data/osu-api.json")
+    const responseJson = await response.json()
+    osuApi = responseJson.api
+}
+getOsuApi()
+
+// Load players
+let allPlayers
+let playerIdLeft, playerIdRight
+async function getPlayers() {
+    const response = await axios.get("../_data/players.json")
+    allPlayers = response.data
+}
+getPlayers()
+// Find Player
+const findPlayer = playerName => allPlayers.find(player => player.playerName.toLowerCase() === playerName.toLowerCase())
+
 // Get beatmap information
 const roundLogoEl = document.getElementById("round-logo")
 let allBeatmaps
@@ -209,10 +229,18 @@ socket.onmessage = event => {
     if (currentPlayerNameLeft !== data.tourney.team.left) {
         currentPlayerNameLeft = data.tourney.team.left
         playerNameLeftEl.textContent = currentPlayerNameLeft
+
+        // Get player object
+        const player = findPlayer(currentPlayerNameLeft)
+        if (player) playerIdLeft = player.playerId
     }
     if (currentPlayerNameRight !== data.tourney.team.right) {
         currentPlayerNameRight = data.tourney.team.right
         playerNameRightEl.textContent = currentPlayerNameRight
+
+        // Get player object
+        const player = findPlayer(currentPlayerNameRight)
+        if (player) playerIdRight = player.playerId
     }
 
     // Player Star Container
@@ -363,3 +391,79 @@ function toggleAnimation() {
     toggleAnimaionEl.classList.remove(`toggle-${isAnimationToggled? "in" : ""}active`)
     toggleAnimaionEl.classList.add(`toggle-${isAnimationToggled? "" : "in"}active`)
 }
+
+// MP Link
+const mpLinkEl = document.getElementById("mp-link")
+let currentMpLink
+let leftScores = [], rightScores = [], leftAccs = [], rightAccs = []
+let leftAvgScore, leftAvgAcc, rightAvgScore, rightAvgAcc
+function setMpLink() {
+    currentMpLink = Number(mpLinkEl.value)
+    setWinScreenStats()
+}
+
+// Set stats
+async function setWinScreenStats() {
+    const response = await fetch(`https://osu.ppy.sh/api/get_match?k=${osuApi}&mp=${currentMpLink}`)
+    const responseJson = await response.json()
+
+    // Reset stuff
+    leftScores = []
+    rightScores = []
+    leftAccs = []
+    rightAccs = []
+
+    for (let i = 0 ; i < responseJson.games.length; i++) {
+        const currentGame = responseJson.games[i]
+        const currentMap = findBeatmaps(currentGame.beatmap_id)
+
+        console.log(currentGame)
+        if (currentMap) {
+            for (let j = 0; j < currentGame.scores.length; j++) {
+                const currentScore = currentGame.scores[j]
+                // Acc scoring method
+                const totalNotes = Number(currentGame.scores[j].countmiss) + Number(currentGame.scores[j].count50) + 
+                    Number(currentGame.scores[j].count100) + Number(currentGame.scores[j].count300) +
+                    Number(currentGame.scores[j].countgeki) + Number(currentGame.scores[j].countkatu)
+                
+                // Set score and acc
+                let score = Number(currentScore.score)
+                let acc = (Number(currentScore.countmiss) * 0 + Number(currentScore.count50) * 1 / 6 +
+                            Number(currentScore.count100) * 1 / 3 + Number(currentScore.count300) +
+                            Number(currentScore.countgeki) + Number(currentScore.countkatu) * 1 / 3) / totalNotes
+                if (totalNotes === 0) acc = 0
+
+                // Apply restrictions to each mod
+                if (getMods(Number(currentGame.scores[j].enabled_mods)).includes("HR")) score /= 1.1
+                if (getMods(Number(currentGame.scores[j].enabled_mods)).includes("HD")) score /= 1.06
+                if (getMods(Number(currentGame.scores[j].enabled_mods)).includes("DT")) score /= 1.2
+
+                // Add for each team
+                if (currentScore.user_id == playerIdLeft) {
+                    leftScores.push(score)
+                    leftAccs.push(acc)
+                } else if (currentScore.user_id == playerIdRight) {
+                    rightScores.push(score)
+                    rightAccs.push(acc)
+                }
+            }
+        }
+    }
+
+    // Set averages
+    const getAverage = array => array.reduce((acc, val) => acc + val, 0) / array.length
+    const leftAvgScore = getAverage(leftScores)
+    const leftAvgAcc = getAverage(leftAccs)
+    const rightAvgScore = getAverage(rightScores)
+    const rightAvgAcc = getAverage(rightAccs)
+
+    document.cookie = `leftAvgScore=${leftAvgScore}; path=/`
+    document.cookie = `leftAvgAcc=${leftAvgAcc}; path=/`
+    document.cookie = `rightAvgScore=${rightAvgScore}; path=/`
+    document.cookie = `rightAvgAcc=${rightAvgAcc}; path=/`
+}
+
+document.cookie = `leftAvgScore=0; path=/`
+document.cookie = `leftAvgAcc=0; path=/`
+document.cookie = `rightAvgScore=0; path=/`
+document.cookie = `rightAvgAcc=0; path=/`

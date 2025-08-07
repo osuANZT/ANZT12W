@@ -1,10 +1,10 @@
 // Load players
 let allPlayers
-async function getBeatmaps() {
+async function getPlayers() {
     const response = await axios.get("../_data/players.json")
     allPlayers = response.data
 }
-getBeatmaps()
+getPlayers()
 
 // Get player
 const findPlayer = playerName => allPlayers.find(player => player.playerName.toLowerCase() === playerName.toLowerCase())
@@ -16,7 +16,6 @@ const playerLogoRightEl = document.getElementById("player-logo-right")
 const playerNameLeftEl = document.getElementById("player-name-left")
 const playerNameRightEl = document.getElementById("player-name-right")
 let currentPlayerNameLeft, currentPlayerNameRight
-let currentPlayerIdLeft, currentPlayerIdRight
 
 // Win Status
 const winStatusLeftEl = document.getElementById("win-status-left")
@@ -57,7 +56,6 @@ socket.onmessage = event => {
         const player = findPlayer(currentPlayerNameLeft)
         if (player) {
             playerLogoLeftEl.style.backgroundImage = `url("https://a.ppy.sh/${player.playerId}")`
-            currentPlayerIdLeft = player.playerId
         }
     }
     if (currentPlayerNameRight !== data.tourney.team.right && allPlayers) {
@@ -69,7 +67,6 @@ socket.onmessage = event => {
         const player = findPlayer(currentPlayerNameRight)
         if (player) {
             playerLogoRightEl.style.backgroundImage = `url("https://a.ppy.sh/${player.playerId}")`
-            currentPlayerIdRight = player.playerId
         }
     }
 
@@ -169,3 +166,22 @@ socket.onmessage = event => {
     nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
     nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
 }
+
+// Averages
+const leftAverageScoreEl = document.getElementById("left-average-score")
+const leftAverageAccEl = document.getElementById("left-average-acc")
+const rightAverageScoreEl = document.getElementById("right-average-score")
+const rightAverageAccEl = document.getElementById("right-average-acc")
+
+setInterval(() => {
+    const leftAvgScore = Number(getCookie("leftAvgScore"))
+    const leftAvgAcc = Number(getCookie("leftAvgAcc"))
+    const rightAvgScore = Number(getCookie("rightAvgScore"))
+    const rightAvgAcc = Number(getCookie("rightAvgAcc"))
+
+
+    leftAverageScoreEl.textContent = leftAvgScore.toLocaleString(undefined, { maximumFractionDigits: 0 })
+    leftAverageAccEl.textContent = `${(leftAvgAcc * 100).toFixed(2)}%`
+    rightAverageScoreEl.textContent = rightAvgScore.toLocaleString(undefined, { maximumFractionDigits: 0 })
+    rightAverageAccEl.textContent = `${(rightAvgAcc * 100).toFixed(2)}%`
+}, 200)
