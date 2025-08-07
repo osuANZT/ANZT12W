@@ -30,6 +30,17 @@ let currentPlayerStarsLeft, currentPlayerStarsRight
 const chatDisplayContainerEl = document.getElementById("chat-display-container")
 let chatLen = 0
 
+// Now playing information
+const nowPlayingSongBackgroundEl = document.getElementById("now-playing-song-background")
+const nowPlayingTitleEl = document.getElementById("now-playing-title")
+const nowPlayingArtistEl = document.getElementById("now-playing-artist")
+let currentId, currentChecksum
+// Now Playing Timeline Information
+const nowPlayingTimelineForegroundEl = document.getElementById("now-playing-timeline-foreground")
+const nowPlayingTimelineCircleEl = document.getElementById("now-playing-timeline-circle")
+const nowPlayingCurrentTimeEl = document.getElementById("now-playing-current-time")
+const nowPlayingEndTimeEl = document.getElementById("now-playing-end-time")
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -111,4 +122,50 @@ socket.onmessage = event => {
         chatLen = data.tourney.chat.length
         chatDisplayContainerEl.scrollTop = chatDisplayContainerEl.scrollHeight
     }
+
+    // Now playing information
+    if (currentId !== data.beatmap.id && currentChecksum !== data.beatmap.checksum) {
+        currentId = data.beatmap.id
+        currentChecksum = data.beatmap.checksum
+
+        const backgroundUrl = data.directPath.beatmapBackground.replace(/\\/g, "/")
+        const imagePath = `../../Songs/${backgroundUrl}?a=${Math.random(10000)}`
+        nowPlayingSongBackgroundEl.style.backgroundImage = `url("${imagePath}")`
+        nowPlayingTitleEl.textContent = data.beatmap.title
+        nowPlayingArtistEl.textContent = data.beatmap.artist
+
+        // Get dominant colour
+        const img = new Image()
+        img.crossOrigin = "anonymous"
+        img.src = imagePath
+
+        img.onload = function () {
+            // Get base colour
+            const colorThief = new ColorThief()
+            const baseColor = colorThief.getColor(img)
+
+            // Get scaled colour based on baseColor
+            let scaledColor = baseColor
+            let multiplier = 1
+            while (scaledColor.reduce((a, b) => a + b, 0) < 500) {
+                multiplier += 0.1
+                scaledColor = baseColor.map(c => c * multiplier)
+            }
+            const borderColor = scaledColor.map(c => Math.round(c * 0.8))
+
+            // Set backgrounds / borders
+            nowPlayingSongBackgroundEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
+            nowPlayingTimelineForegroundEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
+            nowPlayingTimelineCircleEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
+            nowPlayingTimelineCircleEl.style.borderColor = `rgb(${borderColor.join(",")})`
+        
+            // Set end time
+            nowPlayingEndTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.mp3Length / 1000))
+        }
+    }
+
+    nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.live / 1000))
+    const timelineWidth = 298 * data.beatmap.time.live / data.beatmap.time.mp3Length
+    nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
+    nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
 }
