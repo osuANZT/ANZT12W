@@ -59,10 +59,10 @@ socket.onmessage = event => {
     }
 
     // Stars
-    if (currentPlayerStarsLeft !== data.tourney.totalScore.left ||
-        currentPlayerStarsRight !== data.tourney.totalScore.right) {
-        currentPlayerStarsLeft = data.tourney.totalScore.left
-        currentPlayerStarsRight = data.tourney.totalScore.right  
+    if (currentPlayerStarsLeft !== data.tourney.points.left ||
+        currentPlayerStarsRight !== data.tourney.points.right) {
+        currentPlayerStarsLeft = data.tourney.points.left
+        currentPlayerStarsRight = data.tourney.points.right  
         playerScorelineLeftEl.textContent = currentPlayerStarsLeft
         playerScorelineRightEl.textContent = currentPlayerStarsRight
         
