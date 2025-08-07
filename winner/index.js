@@ -26,6 +26,10 @@ const playerScorelineLeftEl = document.getElementById("player-scoreline-left")
 const playerScorelineRightEl = document.getElementById("player-scoreline-right")
 let currentPlayerStarsLeft, currentPlayerStarsRight
 
+// Chat stuff
+const chatDisplayContainerEl = document.getElementById("chat-display-container")
+let chatLen = 0
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -76,5 +80,35 @@ socket.onmessage = event => {
             winStatusLeftEl.setAttribute("src", "static/win-status/WINNER.png")
             winStatusRightEl.setAttribute("src", "static/win-status/WINNER.png")
         }
+    }
+
+    // Chat Display
+    // This is also mostly taken from Victim Crasher: https://github.com/VictimCrasher/static/tree/master/WaveTournament
+    if (chatLen !== data.tourney.chat.length) {
+        (chatLen === 0 || chatLen > data.tourney.chat.length) ? (chatDisplayContainerEl.innerHTML = "", chatLen = 0) : null
+        const fragment = document.createDocumentFragment()
+
+        for (let i = chatLen; i < data.tourney.chat.length; i++) {
+            // Chat message container
+            const chatMessageContainer = document.createElement("div")
+            chatMessageContainer.classList.add("chat-message-container")  
+
+            // Name
+            const chatMessageName = document.createElement("div")
+            chatMessageName.classList.add("chat-message-name", data.tourney.chat[i].team)
+            chatMessageName.textContent = data.tourney.chat[i].name
+
+            // Message
+            const chatMessageContent = document.createElement("div")
+            chatMessageContent.classList.add("chat-message-content")
+            chatMessageContent.innerText = data.tourney.chat[i].message
+
+            chatMessageContainer.append(chatMessageName, chatMessageContent)
+            fragment.append(chatMessageContainer)
+        }
+
+        chatDisplayContainerEl.append(fragment)
+        chatLen = data.tourney.chat.length
+        chatDisplayContainerEl.scrollTop = chatDisplayContainerEl.scrollHeight
     }
 }
