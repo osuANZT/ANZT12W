@@ -7,7 +7,7 @@
 :root {
     --score-display-vertical-alignment: 78px;
     --profile-picture-width: 261px;
-    --player-ur-horizontal-alignment: 194px;
+    --player-ur-horizontal-alignment: 179px;
     --player-stats-horizontal-alignment: 331px;
     --player-score-horizontal-alignment: 52.5%;
 }
@@ -245,13 +245,35 @@
     font-family: "Poppins";
     text-shadow: 0px 2px 1.5px #000;
     text-align: center;
-    width: var(--profile-picture-width)
+    width: var(--profile-picture-width);
 }
 .player-ur-left {
     left: var(--player-ur-horizontal-alignment);
     transform: translateX(-50%);
 }
 .player-ur-right {
+    right: var(--player-ur-horizontal-alignment);
+    transform: translateX(50%);
+}
+/* ===========================
+   Player Seed
+=========================== */
+.player-seed {
+    position: absolute;
+    top: 267px;
+    font-size: 29px;
+    color: white;
+    font-weight: 700;
+    font-family: "Poppins";
+    text-shadow: 0px 2px 1.5px #000;
+    text-align: center;
+    width: var(--profile-picture-width);
+}
+.player-seed-left {
+    left: var(--player-ur-horizontal-alignment);
+    transform: translateX(-50%);
+}
+.player-seed-right {
     right: var(--player-ur-horizontal-alignment);
     transform: translateX(50%);
 }

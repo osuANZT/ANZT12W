@@ -102,9 +102,6 @@ socket.onmessage = event => {
             songTimelineCircleEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
             songTimelineCircleEl.style.borderColor = `rgb(${borderColor.join(",")})`
         }
-
-        // Set end time
-        songEndTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.mp3Length / 1000))
     }
 
     // Get time
@@ -112,4 +109,5 @@ socket.onmessage = event => {
     const timelineWidth = 427 * data.beatmap.time.live / data.beatmap.time.mp3Length
     songTimelineForegroundEl.style.width = `${timelineWidth}px`
     songTimelineCircleEl.style.left = `${timelineWidth}px`
+    songEndTimeEl.textContent = setLengthDisplay(Math.round(data.beatmap.time.mp3Length / 1000))
 }

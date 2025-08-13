@@ -350,17 +350,19 @@ socket.onmessage = event => {
     // IPC State
     if (ipcState !== data.tourney.ipcState) {
         ipcState = data.tourney.ipcState
-        // if (ipcState === 4 && !checkedWinner && currentPickedTile && isStarToggled) {
-        //     checkedWinner = true
+        if (ipcState === 4 && !checkedWinner && currentPickedTile && isStarToggled) {
+            checkedWinner = true
 
-        //     // Set winner
-        //     currentLeftScore = data.tourney.totalScore.left
-        //     currentRightScore = data.tourney.totalScore.right
-        //     let winner = currentLeftScore > currentRightScore ? "red" : currentRightScore > currentLeftScore ? "blue" : ""
+            // Set winner
+            currentLeftScore = data.tourney.totalScore.left
+            currentRightScore = data.tourney.totalScore.right
+            let winner = currentLeftScore > currentRightScore ? "red" : currentRightScore > currentLeftScore ? "blue" : ""
 
-        //     // Set tile
-        //     currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
-        // }
+            // Set tile
+            currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
+        } else if (ipcState !== 4) {
+            checkedWinner = false
+        }
     }
 }
 
@@ -467,3 +469,51 @@ document.cookie = `leftAvgScore=0; path=/`
 document.cookie = `leftAvgAcc=0; path=/`
 document.cookie = `rightAvgScore=0; path=/`
 document.cookie = `rightAvgAcc=0; path=/`
+
+// OBS Information
+const sceneCollection = document.getElementById("sceneCollection")
+let autoadvance_button = document.getElementById('auto-advance-button')
+let autoadvance_timer_label = document.getElementById('autoAdvanceTimerLabel')
+const pick_to_transition_delay_ms = 10000
+let enableAutoAdvance = false
+const gameplay_scene_name = "Gameplay"
+const mappool_scene_name = "Mappool"
+const winner_scene_name = "Team Win"
+
+let sceneTransitionTimeoutID
+
+function switchAutoAdvance() {
+    enableAutoAdvance = !enableAutoAdvance
+    if (enableAutoAdvance) {
+        autoadvance_button.innerText = 'AUTO ADVANCE: ON'
+        autoadvance_button.classList.add("toggle-active")
+        autoadvance_button.classList.remove("toggle-inactive")
+    } else {
+        autoadvance_button.innerText = 'AUTO ADVANCE: OFF'
+        autoadvance_button.classList.remove("toggle-active")
+        autoadvance_button.classList.add("toggle-inactive")
+    }
+}
+
+const obsGetCurrentScene = window.obsstudio?.getCurrentScene ?? (() => {})
+const obsGetScenes = window.obsstudio?.getScenes ?? (() => {})
+const obsSetCurrentScene = window.obsstudio?.setCurrentScene ?? (() => {})
+
+obsGetScenes(scenes => {
+    for (const scene of scenes) {
+        let clone = document.getElementById("sceneButtonTemplate").content.cloneNode(true)
+        let buttonNode = clone.querySelector('button')
+        buttonNode.id = `scene__${scene}`
+        buttonNode.textContent = `GO TO: ${scene}`
+        buttonNode.onclick = function() { obsSetCurrentScene(scene); }
+        sceneCollection.appendChild(clone)
+    }
+
+    obsGetCurrentScene((scene) => { document.getElementById(`scene__${scene.name}`).classList.add("active-scene") })
+})
+
+window.addEventListener('obsSceneChanged', function(event) {
+    let activeButton = document.getElementById(`scene__${event.detail.name}`)
+    for (const scene of sceneCollection.children) { scene.classList.remove("toggle-active") }
+    activeButton.classList.add("toggle-active")
+})

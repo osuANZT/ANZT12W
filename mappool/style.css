@@ -164,15 +164,43 @@
     position: absolute;
     top: 0;
     left: 2560px;
-    width: 350px;
+    width: 700px;
     height: 1440px;
     font-family: "Poppins";
     background-color: #2183DD;
     color: white;
 }
+/* ===========================
+   Sidebar Column
+=========================== */
+.column {
+    position: absolute;
+    top: 0;
+    width: 350px;
+    height: inherit;
+}
+.column-1 { left: 0; }
+.column-2 { left: 350px; }
+/* ===========================
+   Sidebar Divider
+=========================== */
+.divider {
+    position: absolute;
+    top: 0;
+    background-color: white;
+    width: 2px;
+    height: inherit;
+}
+.divider-1 { left: 349px; }
+/* ===========================
+   Sidebar Sections
+=========================== */
 .sidebar-section {
     margin-bottom: 100px;
 }
+/* ===========================
+   Sidebar Text
+=========================== */
 h1, h2 {
     text-align: center;
     width: 100%;
@@ -181,6 +209,13 @@ h2 {
     font-size: 3em;
     height: 72px;
 }
+p {
+    text-align: center;
+    font-size: 1.25em;
+}
+/* ===========================
+   Sidebar Button
+=========================== */
 button { 
     margin-left: 50px;
     font-family: "Poppins";
@@ -199,10 +234,6 @@ button:active {
 }
 .toggle-active { background-color: rgb(32, 121, 44); }
 .toggle-inactive { background-color: rgb(121, 32, 32); }
-p {
-    text-align: center;
-    font-size: 1.25em;
-}
 
 /* ===========================
    Panel

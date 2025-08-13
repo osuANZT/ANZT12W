@@ -15,6 +15,20 @@ const playerNameLeftEl = document.getElementById("player-name-left")
 const playerNameRightEl = document.getElementById("player-name-right")
 let currentPlayerNameLeft, currentPlayerNameRight
 
+// Player Info
+let allPlayers
+async function getPlayers() {
+    const response = await axios.get("../_data/players.json")
+    allPlayers = response.data
+}
+getPlayers()
+
+// Player Seed
+const playerSeedLeftEl = document.getElementById("player-seed-left")
+const playerSeedRightEl = document.getElementById("player-seed-right")
+const findPlayerSeed = playerId => allPlayers.find(player => player.playerId === playerId)
+let currentPlayerLeftId, currentPlayerRightId
+
 // Player Star Container
 const playerStarContainerLeftEl = document.getElementById("player-star-container-left")
 const playerStarContainerRightEl = document.getElementById("player-star-container-right")
@@ -128,7 +142,26 @@ socket.onmessage = event => {
         playerNameRightEl.textContent = currentPlayerNameRight 
     }
 
-    console.log(data)
+    // Player Seed
+    if (currentPlayerLeftId === data.tourney.clients[0].user.id) {
+        currentPlayerLeftId = data.tourney.clients[0].user.id
+        const player = findPlayerSeed(currentPlayerLeftId)
+        if (player) {
+            playerSeedLeftEl.textContent = `#${player.playerSeed}`
+        } else {
+            playerSeedLeftEl.textContent = ""
+        }
+    }
+    if (currentPlayerRightId === data.tourney.clients[1].user.id) {
+        currentPlayerRightId = data.tourney.clients[1].user.id
+        const player = findPlayerSeed(currentPlayerRightId)
+        if (player) {
+            playerSeedRightEl.textContent = `#${player.playerSeed}`
+        } else {
+            playerSeedRightEl.textContent = ""
+        }
+    }
+
     // Star Visible
     if (isStarVisible !== data.tourney.starsVisible) {
         isStarVisible = data.tourney.starsVisible

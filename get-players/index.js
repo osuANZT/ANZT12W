@@ -6,13 +6,14 @@ function submit() {
     for (let i = 0; i < textareaValueSplit.length; i++) {
         const textareaValueSplitIndividual = textareaValueSplit[i].split("\t")
         const teamData = {
-            playerId: textareaValueSplitIndividual[0],
+            playerId: Number(textareaValueSplitIndividual[2]),
             playerName: textareaValueSplitIndividual[1],
+            playerSeed: Number(textareaValueSplitIndividual[0])
         }
         teams.push(teamData)
     }
 
-    const jsonString = JSON.stringify(teams, null, 2);
+    const jsonString = JSON.stringify(teams, null, 4);
     const blob = new Blob([jsonString], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
