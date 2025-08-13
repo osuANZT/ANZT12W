@@ -223,6 +223,22 @@ function removeMappoolWinnerOverrideOption(id) {
     if (currentOption) currentOption.remove()
 }
 
+// Set Winner from Mappool Winner Override
+const selectWinnerEl = document.getElementById("select-winner")
+function setWinnerMappoolWinnerOverride() {
+    if (!selectMapEl.value || !selectWinnerEl.value) return
+    
+    // Find element
+    const element = document.getElementById(selectMapEl.value.split("-")[0])
+    if (!element) return
+
+    if (selectWinnerEl.value !== "none") {
+        element.children[6].children[1].setAttribute("src", `static/map-action/${selectWinnerEl.value}-win.png`)
+    } else {
+        element.children[6].children[1].removeAttribute("src")
+    }
+}
+
 // Player Names
 const playerNameLeftEl = document.getElementById("player-name-left")
 const playerNameRightEl = document.getElementById("player-name-right")
