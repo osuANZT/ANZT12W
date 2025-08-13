@@ -111,6 +111,9 @@ const panelCsEl = document.getElementById("panel-cs")
 const panelArEl = document.getElementById("panel-ar")
 const panelSrEl = document.getElementById("panel-sr")
 
+// Select Map
+const selectMapEl = document.getElementById("select-map")
+
 // Map Click Event
 async function mapClickEvent(event) {
     // Figure out whether it is a pick or ban
@@ -136,6 +139,16 @@ async function mapClickEvent(event) {
         this.children[5].style.display = "none"
         this.children[6].style.display = "flex"
         this.children[6].children[0].setAttribute("src", `static/map-action/${team}-pick.png`)
+
+        // Add to be able to select winner
+        if (!document.getElementById(`${currentMapId}-option`)) {
+            const mapOption = document.createElement("option")
+            mapOption.textContent = `${currentMap.mod}${currentMap.order}`
+            mapOption.id = `${currentMapId}-option`
+            mapOption.setAttribute("value", currentMapId)
+            selectMapEl.append(mapOption)
+            selectMapEl.setAttribute("size", `${Math.max(selectMapEl.childElementCount, 2)}`)
+        }
 
         // Animation
         if (isAnimationToggled) {
@@ -187,6 +200,9 @@ async function mapClickEvent(event) {
         this.children[6].style.display = "none"
         this.children[5].children[0].setAttribute("src", `static/map-action/${team}-ban.png`)
         this.children[6].children[1].removeAttribute("src")
+
+        // Remove mappool winner override option if available
+        removeMappoolWinnerOverrideOption(currentMapId)
     } else if (action === "reset") {
         if (currentPickedTile === this) {
             currentPickedTile = undefined
@@ -195,7 +211,16 @@ async function mapClickEvent(event) {
         this.children[5].style.display = "none"
         this.children[6].style.display = "none"
         this.children[6].children[1].removeAttribute("src")
+
+        // Remove mappool winner override option if available
+        removeMappoolWinnerOverrideOption(currentMapId)
     }
+}
+
+// Remove mappool winner override option if available
+function removeMappoolWinnerOverrideOption(id) {
+    const currentOption = document.getElementById(`${id}-option`)
+    if (currentOption) currentOption.remove()
 }
 
 // Player Names

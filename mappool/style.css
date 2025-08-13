@@ -164,7 +164,7 @@
     position: absolute;
     top: 0;
     left: 2560px;
-    width: 700px;
+    width: 1050px;
     height: 1440px;
     font-family: "Poppins";
     background-color: #2183DD;
@@ -181,6 +181,7 @@
 }
 .column-1 { left: 0; }
 .column-2 { left: 350px; }
+.column-3 { left: 700px; }
 /* ===========================
    Sidebar Divider
 =========================== */
@@ -192,6 +193,7 @@
     height: inherit;
 }
 .divider-1 { left: 349px; }
+.divider-2 { left: 699px; }
 /* ===========================
    Sidebar Sections
 =========================== */
@@ -341,3 +343,17 @@ input {
     font-family: inherit;
     font-weight: inherit;
 }
+
+/* ===========================
+   Select
+=========================== */
+select {
+    width: 350px;
+    font-family: inherit;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+select::-webkit-scrollbar { display: none; }
