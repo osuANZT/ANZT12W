@@ -221,7 +221,7 @@ let currentLeftScore, currentRightScore
 
 // Socket
 const socket = createTosuWsSocket()
-socket.onmessage = event => {
+socket.onmessage = async event => {
     const data = JSON.parse(event.data)
     console.log(data)
 
@@ -332,6 +332,15 @@ socket.onmessage = event => {
 
             if (currentNextPicker === "red") setNextPicker("blue")
             else if (currentNextPicker === "blue") setNextPicker("red")
+
+            // If map is picked
+            await delay(5600)
+            if (enableAutoAdvance && isStarToggled) {
+                obsGetCurrentScene((currentScene) => {
+                    if (currentScene.name === gameplay_scene_name) return
+                    obsSetCurrentScene(gameplay_scene_name)
+                })
+            }
         }
     }
 
@@ -360,8 +369,30 @@ socket.onmessage = event => {
 
             // Set tile
             currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
+
+            // Delay 10 sedconds
+            await delay(10000)
+            if (enableAutoAdvance && isStarToggled && (currentStarLeft === currentFirstTo || currentStarRight === currentFirstTo)) {
+                obsGetCurrentScene((currentScene) => {
+                    if (currentScene.name === winner_scene_name) return
+                    obsSetCurrentScene(winner_scene_name)
+                })
+            } else if (enableAutoAdvance && isStarToggled) {
+                obsGetCurrentScene((currentScene) => {
+                    if (currentScene.name === mappool_scene_name) return
+                    obsSetCurrentScene(mappool_scene_name)
+                })
+            }
+
         } else if (ipcState !== 4) {
             checkedWinner = false
+
+            if (ipcState === 2 || ipcState === 3) {
+                obsGetCurrentScene((currentScene) => {
+                    if (currentScene.name === gameplay_scene_name) return
+                    obsSetCurrentScene(gameplay_scene_name)
+                })
+            }
         }
     }
 }
@@ -478,7 +509,7 @@ const pick_to_transition_delay_ms = 10000
 let enableAutoAdvance = false
 const gameplay_scene_name = "Gameplay"
 const mappool_scene_name = "Mappool"
-const winner_scene_name = "Team Win"
+const winner_scene_name = "Winner"
 
 let sceneTransitionTimeoutID
 
