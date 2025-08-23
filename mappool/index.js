@@ -27,8 +27,18 @@ async function getBeatmaps() {
     allBeatmaps = response.data.beatmaps
 
     for (let i = 0; i < allBeatmaps.length; i++) {
-        const element = document.getElementById(`${allBeatmaps[i].mod.toLowerCase()}-maps-container`)
-        element.append(createBeatmapTile(allBeatmaps[i]))
+        if (allBeatmaps[i].mod.includes("NM")) {
+            if (allBeatmaps[i].order <= 4) {
+                const element = document.getElementById(`${allBeatmaps[i].mod.toLowerCase()}-1-maps-container`)
+                element.append(createBeatmapTile(allBeatmaps[i]))
+            } else {
+                const element = document.getElementById(`${allBeatmaps[i].mod.toLowerCase()}-2-maps-container`)
+                element.append(createBeatmapTile(allBeatmaps[i]))
+            }
+        } else {
+            const element = document.getElementById(`${allBeatmaps[i].mod.toLowerCase()}-maps-container`)
+            element.append(createBeatmapTile(allBeatmaps[i]))
+        }
     }
 }
 getBeatmaps()

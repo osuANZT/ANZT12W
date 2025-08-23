@@ -20,7 +20,8 @@
     flex-direction: column;
 }
 .mappool-section > * {
-    height: 154px;
+    height: 140px;
+    margin: -5px 0;
 }
 /* ===========================
    Mod Section
