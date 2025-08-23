@@ -4,7 +4,7 @@ function submit() {
     const textareaValue = textarea.value
     const textareaValueSplit = textareaValue.split("\n")
     for (let i = 0; i < textareaValueSplit.length; i++) {
-        const textareaValueSplitIndividual = textareaValueSplit[i].split("\t")
+        const textareaValueSplitIndividual = textareaValueSplit[i].split(",")
         const teamData = {
             playerId: Number(textareaValueSplitIndividual[2]),
             playerName: textareaValueSplitIndividual[1],

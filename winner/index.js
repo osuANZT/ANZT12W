@@ -6,6 +6,14 @@ async function getPlayers() {
 }
 getPlayers()
 
+// Get beatmap information
+const roundLogoEl = document.getElementById("title")
+async function getBeatmaps() {
+    const response = await axios.get("../_data/beatmaps.json")
+    roundLogoEl.setAttribute("src", `../_shared/assets/titles/${response.data.roundName}-match.png`)
+}
+getBeatmaps()
+
 // Get player
 const findPlayer = playerName => allPlayers.find(player => player.playerName.toLowerCase() === playerName.toLowerCase())
 

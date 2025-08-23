@@ -424,7 +424,7 @@ socket.onmessage = async event => {
                     obsSetCurrentScene(mappool_scene_name)
                 })
             }
-
+            setWinScreenStats()
         } else if (ipcState !== 4) {
             checkedWinner = false
 

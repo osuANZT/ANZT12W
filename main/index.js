@@ -143,7 +143,7 @@ socket.onmessage = event => {
     }
 
     // Player Seed
-    if (currentPlayerLeftId === data.tourney.clients[0].user.id) {
+    if (currentPlayerLeftId !== data.tourney.clients[0].user.id) {
         currentPlayerLeftId = data.tourney.clients[0].user.id
         const player = findPlayerSeed(currentPlayerLeftId)
         if (player) {
@@ -152,7 +152,7 @@ socket.onmessage = event => {
             playerSeedLeftEl.textContent = ""
         }
     }
-    if (currentPlayerRightId === data.tourney.clients[1].user.id) {
+    if (currentPlayerRightId !== data.tourney.clients[1].user.id) {
         currentPlayerRightId = data.tourney.clients[1].user.id
         const player = findPlayerSeed(currentPlayerRightId)
         if (player) {
