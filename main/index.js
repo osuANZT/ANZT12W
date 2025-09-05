@@ -128,6 +128,8 @@ let chatLen = 0
 // IPC State
 let ipcState
 
+let currentLive = 0, previousLive = 0
+
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -301,12 +303,7 @@ socket.onmessage = event => {
     if (ipcState !== data.tourney.ipcState) ipcState = data.tourney.ipcState
 
     // Set live stuff
-    let live = ipcState === 2 ? 0 : data.beatmap.time.live
-    if (currentMappoolBeatmap && currentMappoolBeatmap.mod === "DT") live /= 1.5
-    nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(live / 1000))
-    const timelineWidth = Math.min(397 * data.beatmap.time.live / data.beatmap.time.mp3Length, 397)
-    nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
-    nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
+    handleLiveStuff(data)
 
     // Profile picture
     if (currentPlayerId1 !== data.tourney.clients[0].user.id) {
@@ -444,4 +441,28 @@ socket.onmessage = event => {
             chatDisplayEl.style.opacity = 1
         }
     }
+}
+
+// Handle Live Stuff
+function handleLiveStuff(data) {
+    // Set live stuff
+    if (Math.abs(data.beatmap.time.live - previousLive) > 10000) {
+        currentLive = 0
+        previousLive = 0
+    } else {
+        previousLive = currentLive
+        currentLive = data.beatmap.time.live
+    }
+    let mp3Length = data.beatmap.time.mp3Length
+    if (currentMappoolBeatmap && currentMappoolBeatmap.mod === "DT") {
+        currentLive /= 1.5
+        mp3Length /= 1.5
+    }
+    nowPlayingCurrentTimeEl.textContent = setLengthDisplay(Math.round(currentLive / 1000))
+    const timelineWidth = Math.min(397 * currentLive / data.beatmap.time.mp3Length, 397)
+    nowPlayingTimelineForegroundEl.style.width = `${timelineWidth}px`
+    nowPlayingTimelineCircleEl.style.left = `${timelineWidth}px`
+
+    currentLive = data.beatmap.time.live
+    previousLive = data.beatmap.time.live
 }

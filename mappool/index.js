@@ -422,7 +422,7 @@ socket.onmessage = async event => {
             currentPickedTile.children[6].children[1].setAttribute("src", `static/map-action/${winner}-win.png`)
 
             // Delay 10 sedconds
-            await delay(10000)
+            await delay(15000)
             if (enableAutoAdvance && isStarToggled && (currentStarLeft === currentFirstTo || currentStarRight === currentFirstTo)) {
                 obsGetCurrentScene((currentScene) => {
                     if (currentScene.name === winner_scene_name) return
