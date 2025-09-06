@@ -38,20 +38,6 @@
 }
 
 /* ===========================
-   Gameplay scene
-=========================== */
-.gameplay {
-    position: absolute;
-    top: 175px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1920px;
-    height: 1080px;
-    border-radius: 50px;
-    background-color: #0F0;
-}
-
-/* ===========================
    Gameplay Text
 =========================== */
 .gameplay-text {

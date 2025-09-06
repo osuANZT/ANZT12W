@@ -32,6 +32,10 @@ let mp3Length, liveTime
 // Mod Icon
 const modIconEl = document.getElementById("mod-icon")
 
+// Current State
+const gameplaySectionEl = document.getElementById("gameplay-section")
+let state
+
 // Socket
 const socket = createTosuWsSocket()
 socket.onmessage = event => {
@@ -84,14 +88,24 @@ socket.onmessage = event => {
             songTimelineCircleEl.style.backgroundColor = `rgb(${scaledColor.join(",")})`
             songTimelineCircleEl.style.borderColor = `rgb(${borderColor.join(",")})`
         }
+    }
 
-        // Set end time
-        mp3Length = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.mp3Length / 3 * 2 : data.beatmap.time.mp3Length) / 1000)
-        songEndTimeEl.textContent = setLengthDisplay(mp3Length)
+    // Set end time
+    mp3Length = Math.round((data.play.mods.name.includes("DT") ? data.beatmap.time.mp3Length / 3 * 2 : data.beatmap.time.mp3Length) / 1000)
+    songEndTimeEl.textContent = setLengthDisplay(mp3Length)
+
+    // Set State
+    if (state !== data.state.number) {
+        state = data.state.number
+        if (state === 2) {
+            gameplaySectionEl.style.display = "block"
+        } else {
+            gameplaySectionEl.style.display = "none"
+        }
     }
 
     // Set replayer name
-    replayerNameEl.textContent = data.resultsScreen.playerName
+    replayerNameEl.textContent = data.resultsScreen.playerName || data.play.playerName
     
     // Set stat numbers
     bpmMumberEl.textContent = data.beatmap.stats.bpm.common
